@@ -14,7 +14,8 @@ class AdminViewFacade {
 const name = 'adminViewFacade';
 
 export default angular.module(name, [
-	angularMeteor
+	angularMeteor,
+	Auth
 ]).component(name, {
 	controllerAs : name,
 	controller : AdminViewFacade

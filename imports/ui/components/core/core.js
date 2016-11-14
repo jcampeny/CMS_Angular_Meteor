@@ -1,5 +1,6 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
+import uiRouter from 'angular-ui-router';
 
 import template from './core.html';
 
@@ -21,9 +22,19 @@ export default angular.module(name, [
 	LayoutFacade,
 	MediaFacade,
 	StateFacade,
-	AdminViewFacade
+	AdminViewFacade,
+	uiRouter
 ]).component(name, {
 	template,
 	controllerAs : name,
 	controller : Cms
-});
+}).config(config);
+
+function config ($locationProvider, $urlRouterProvider, $stateProvider){
+	'ngInject';
+
+	$locationProvider.html5Mode(true);
+
+	$urlRouterProvider.otherwise('/');
+}
+
