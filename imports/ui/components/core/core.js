@@ -15,7 +15,13 @@ class Cms {};
 const name = 'cms';
 
 export default angular.module(name, [
-	angularMeteor
+	angularMeteor,
+	CompilatorFacade,
+	PageFacade,
+	LayoutFacade,
+	MediaFacade,
+	StateFacade,
+	AdminViewFacade
 ]).component(name, {
 	template,
 	controllerAs : name,
