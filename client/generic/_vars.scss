@@ -1,0 +1,77 @@
+@import '_mixins';
+//tipo
+@font-face {
+    font-family: Avenir;
+    src: url('fonts/Avenir.eot'); /* IE9 Compat Modes */
+    src: url('fonts/Avenir.woff2') format('woff2'), /* Super Modern Browsers */
+         url('fonts/Avenir.woff') format('woff'), /* Pretty Modern Browsers */
+         url('fonts/Avenir.ttf')  format('truetype'), /* Safari, Android, iOS */
+}
+$Avenir : Avenir, sans-serif;
+//media queries
+$mobile-v : '(max-width : 960px) and (max-height : 500px) and (min-width : 450px) and (min-height: 280px)';
+$xs    : '(max-width: 599px)';
+$gt-xs : '(min-width: 600px)';
+$sm    : '(min-width: 600px) and (max-width: 959px)';
+$gt-sm : '(min-width: 960px)';
+$md    : '(min-width: 960px) and (max-width: 1279px)';
+$gt-md : '(min-width: 1280px)';
+$lg    : '(min-width: 1280px) and (max-width: 1919px)';
+$gt-lg : '(min-width: 1920px)';
+$xl    : '(min-width: 1920px)';
+//usage: @media #{$gt-sm} 
+
+// transition
+$transition : ease-in 0.2s;
+$transition-long : ease-in-out 0.4s;
+$transition-angular : cubic-bezier(.25,.8,.25,1) 0.4s; 
+
+//MARGINS
+$margin: 20px;
+
+//COLORS
+$light-gray: #F4F4F4;
+$gray : #CECECE;
+$dark-blue : #3A4A61;
+$blue : #45AFE3;
+$turquoise : #50D2C2;
+$green : #48BA6C;
+$purple : #9184C5;
+$magenta : #ED1852;
+$yellow : #FBB827;
+
+//COLOR TEXT
+$dark-gray : #9B9B9B;
+$darkest-gray : #4A4A4A;
+$darkest-blue : #344257;
+
+//Shadows
+$shadow : 0px 2px 4px 0px rgba(206,206,206,0.2);
+$shadow-blur : 0px 2px 8px 0px rgba(206,206,206,0.2);
+$shadow-dataviz : 0px 4px 4px 0px rgba(206,206,206,0.2);
+
+/**********
+Animations
+**********/
+
+//Loading angular
+@-webkit-keyframes rotating{
+  from {
+    @include transform(rotate(0deg));
+  }
+  to {
+    @include transform(rotate(360deg));
+  }
+}
+@keyframes rotating {
+  from {
+    @include transform(rotate(0deg));
+  }
+  to {
+    @include transform(rotate(360deg));
+  }
+}
+
+.infinite-rotation {
+  @include animate(rotating 2s linear infinite);
+}
