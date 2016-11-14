@@ -1,1 +1,40 @@
-auth{}
+auth{
+	section{
+		position: fixed;
+		width: 360px;
+		background-color: $black;
+		top: 50%;
+		left: 50%;
+		@include box-shadow($shadow-blur);
+		@include transform(translate(-50%,-50%));
+		article.login-form{
+			div.logo{
+				text-align: center;
+				h1{
+					span.lnr{
+						margin-right: 5px;
+						color: $dark-emerald;
+					}
+				}
+			}
+		}
+		div.form{
+			text-align: center;
+			@extend md-input-container;
+			a{
+				@include btn-main($black);
+				font-size: 14px;
+				display: block;
+				width: 100%;
+				margin-top: $margin;
+				@media #{$gt-sm}{
+					&:hover{
+						border: 1px solid $emerald;
+						background-color: $emerald;
+						color: white;
+					}
+				}
+			}
+		}
+	}
+}

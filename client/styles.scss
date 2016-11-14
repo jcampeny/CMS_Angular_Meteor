@@ -2,6 +2,13 @@
 @import 'generic/_mixins';
 @import '../imports/ui/components/core/core';
 
-body{
-	
+* {
+	box-sizing: border-box;
+	font-family: $Avenir;
 }
+
+body, html{
+	background-color : $light-gray !important;
+	color: white !important;
+}
+

@@ -18,6 +18,11 @@ class Auth{
 				return Meteor.user();
 			}
 		});
+
+		this.credentials = {
+			userName : "",
+			password : ""
+		};
 	}
 }
 

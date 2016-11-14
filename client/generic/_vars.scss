@@ -30,25 +30,18 @@ $transition-angular : cubic-bezier(.25,.8,.25,1) 0.4s;
 $margin: 20px;
 
 //COLORS
-$light-gray: #F4F4F4;
-$gray : #CECECE;
-$dark-blue : #3A4A61;
-$blue : #45AFE3;
-$turquoise : #50D2C2;
-$green : #48BA6C;
-$purple : #9184C5;
-$magenta : #ED1852;
-$yellow : #FBB827;
-
-//COLOR TEXT
-$dark-gray : #9B9B9B;
-$darkest-gray : #4A4A4A;
-$darkest-blue : #344257;
+$black: #323232;
+$gray: #595959;
+$light-gray: #747474;
+$dark-emerald: #57a69e;
+$emerald: #76b3ae;
+$light-emerald: #97c4c1;
+$red: #c33f41; 
 
 //Shadows
-$shadow : 0px 2px 4px 0px rgba(206,206,206,0.2);
-$shadow-blur : 0px 2px 8px 0px rgba(206,206,206,0.2);
-$shadow-dataviz : 0px 4px 4px 0px rgba(206,206,206,0.2);
+$shadow : 0px 2px 4px 0px rgba(50,50,50,0.2);
+$shadow-blur : 0px 0px 8px 2px rgba(50,50,50,0.2);
+$shadow-dataviz : 0px 4px 4px 0px rgba(50,50,50,0.2);
 
 /**********
 Animations
@@ -75,3 +68,38 @@ Animations
 .infinite-rotation {
   @include animate(rotating 2s linear infinite);
 }
+
+
+md-input-container{
+    label{color: white;}
+    input{
+        color:white;
+        border-bottom: 1px solid white;
+    }
+  .md-input-has-value{
+    label{color: $dark-emerald;}
+    input{border-bottom: 1px solid $dark-emerald;}
+  }
+}
+
+@mixin btn-main($color){
+  background-color: $dark-emerald;
+  color: $color;
+  border: 1px solid $dark-emerald;
+  padding: 0.8em 1.8em;
+  font-size: 10px;
+  cursor: pointer;
+  @include transition(all $transition);
+  @media #{$gt-sm}{
+    &:hover{
+      background-color: transparent;
+      color: $dark-emerald;
+    }
+  }
+}
+
+
+
+
+
+
