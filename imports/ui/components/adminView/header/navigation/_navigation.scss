@@ -1,0 +1,48 @@
+navigation{
+	width: $navigation-width;
+	height: 100%;
+	min-height: calc(100vh - #{$header-height});
+	position: absolute;
+	top: $header-height;
+	background-color: $gray;
+	nav{
+		ul{
+			list-style: none;
+			margin: 0px; padding: 0px;
+			li{
+				height: $header-height;
+				font-size: 14px;
+				text-align: left;
+				padding-left: 25%;
+				border-top: 1px solid $light-gray;
+				line-height: $header-height;
+				cursor: pointer;
+				&:last-child{border-bottom: 1px solid $light-gray;}
+				@include transition(all $transition);
+				span.lnr{
+					@include icon-btn($dark-emerald, $dark-emerald);
+					font-size: 14px;
+					margin-right: 10px;
+				}
+				@media #{$gt-sm}{
+					&:hover{ background-color: $black; }
+				}
+				&.active{ background-color: $black; }
+			}
+			li.main-options{
+				background-color: $black;
+				line-height: $header-height + 10;
+				padding: 0px;
+				cursor: auto;
+				span.lnr{
+					font-size: 20px;
+					margin-right: 0px;
+					display: inline-block;
+					text-align: center;
+					width: 31%;
+					@include icon-btn($dark-emerald, white);
+				}
+			}
+		}
+	}
+}

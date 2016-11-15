@@ -6,6 +6,7 @@ import { viewController } from './viewController';
 
 import { name as Auth } from './auth/auth';
 import { name as HeaderOptions } from './header/headerOptions/headerOptions';
+import { name as Navigation } from './header/navigation/navigation';
 
 class AdminViewFacade {
 	constructor($scope, $reactive, $rootScope, $location){
@@ -30,9 +31,10 @@ const name = 'adminViewFacade';
 export default angular.module(name, [
 	angularMeteor,
 	Auth,
-	HeaderOptions
+	HeaderOptions, 
+	Navigation
 ]).component(name, {
-	template : '<div ui-view=""></div>',
+	template : '<div ui-view="" class="admin-view-facade"></div>',
 	controllerAs : name,
 	controller : AdminViewFacade
 })
