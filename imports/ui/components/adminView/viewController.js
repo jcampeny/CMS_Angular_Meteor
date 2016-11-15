@@ -1,3 +1,4 @@
+//AdminViewFacade's config
 function config ($stateProvider){
 	'ngInject';
 
@@ -17,7 +18,10 @@ function config ($stateProvider){
 	})
 	.state('home', {
 		url: '/',
-		template: '<nav-header></nav-header> <div ui-view=""></div>',
+		template: 
+			'<header-options></header-options>'+
+			'<navigation></navigation>'+
+			'<div ui-view=""></div>',
 		abstract: true,
 		resolve : {
 			currentUser($q){
@@ -35,6 +39,7 @@ function config ($stateProvider){
 	});
 }
 
+//AdminViewFacade's run
 function run($rootScope, $state){
 	'ngInject';
 
@@ -45,18 +50,20 @@ function run($rootScope, $state){
 	);
 }
 
+//Check if user can visit some view
 function checkUser(userId, location){
 	var promise = new Promise(function(resolve, reject){
 		if (userId !== null && location === '/login')
 			reject({reason: 'LOGGED', redirectTo: 'home.resume'});
 		
 		if (userId === null && location !== '/login')
-			reject({reason: 'LOGGED', redirectTo: 'home.resume'});		
+			reject({reason: 'AUTH_REQUIRED', redirectTo: 'auth'});		
 	});
 
 	return promise;
 }
 
+//return constructor
 function ViewController(){
 	return {
 		run : run,

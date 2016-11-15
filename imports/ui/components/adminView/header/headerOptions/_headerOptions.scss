@@ -1,0 +1,36 @@
+header-options{
+	$height: 50px;
+	header{
+		height: $height;
+		background-color: $gray;
+		section.logo{
+			width: 200px;
+			float: left;
+			text-align: center;
+			line-height: $height;
+			h1{
+				margin: 0px;
+				font-size: 20px;
+				span.lnr{
+					margin-right: 5px;
+					color: $dark-emerald;
+					position: relative;
+					top: 2px;
+				}
+			}
+		}
+		section.options{
+			width: calc(100% - 200px);
+			float: left;
+			line-height: $height + 10;
+			height: $height;
+			text-align: right;
+			span.lnr{
+				@include icon-btn($dark-emerald, white);
+				display: inline-block;
+				width: 50px;
+				text-align: center;
+			}
+		}
+	}
+}

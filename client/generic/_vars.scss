@@ -69,7 +69,7 @@ Animations
   @include animate(rotating 2s linear infinite);
 }
 
-
+//inputs
 md-input-container{
     label{color: white;}
     input{
@@ -82,6 +82,7 @@ md-input-container{
   }
 }
 
+//buttons
 @mixin btn-main($color){
   background-color: $dark-emerald;
   color: $color;
@@ -98,12 +99,26 @@ md-input-container{
   }
 }
 
+//error text
 .error-cms{
   color: $red;
   background-color: rgba(195, 63, 65, 0.1);;
   border-left: 5px solid $red;
   padding: 0.5em;
   text-align: left;
+}
+
+//icons
+@mixin icon-btn($color, $hover-color){
+  font-size: 20px;
+  color: $color;
+  cursor: pointer;
+  @include transition(all $transition);
+  @media #{$gt-sm}{
+    &:hover{
+      color: $hover-color;
+    }
+  }
 }
 
 
