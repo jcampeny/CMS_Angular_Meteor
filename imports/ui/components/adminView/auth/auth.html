@@ -5,15 +5,17 @@
 		</div>
 		<div class="form">
 		    <md-input-container flex>
-		    	<label for="username">Username</label>
-		      	<input id="username" type="text" ng-model="auth.credentials.username"/>
+		    	<label for="username">Username or Email</label>
+		      	<input id="username" type="text" ng-model="auth.credentials.userName"/>
 		    </md-input-container>
 		    <br>
 		  	<md-input-container flex>
 		  		<label for="password">Password</label>
 		  	  	<input id="password" type="password" ng-model="auth.credentials.password"/>
 		  	</md-input-container>
-		  	<a>Log In</a>
+		  	<br>
+		  	<div class="error-cms" ng-if="auth.error.reason">{{auth.error.reason}}</div>
+		  	<a ng-click="auth.login()">Log In</a>
 		</div>
 	</article>
 

@@ -18,13 +18,14 @@ const name = 'cms';
 
 export default angular.module(name, [
 	angularMeteor,
+	'accounts.ui',
+	uiRouter,
 	CompilatorFacade,
 	PageFacade,
 	LayoutFacade,
 	MediaFacade,
 	StateFacade,
 	AdminViewFacade,
-	uiRouter,
 	ngMaterial
 ]).component(name, {
 	template,
