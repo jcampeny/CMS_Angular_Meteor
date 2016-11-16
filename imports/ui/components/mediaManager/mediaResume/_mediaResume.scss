@@ -16,7 +16,7 @@ media-resume{
 		article{
 			div.medias{
 				position: relative;
-				overflow: scroll;
+				overflow-x: scroll;
 				white-space: nowrap;
 				border-bottom: 1px solid white;
 				padding: $margin 0px;
