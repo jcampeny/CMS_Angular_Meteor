@@ -1,0 +1,79 @@
+media-resume{
+	section.media-resume-container{
+		display: block;
+		background-color: $black;
+		padding: $margin $margin 0px;
+		@include box-shadow($shadow-blur);	
+		header{
+			border-bottom: 1px solid white;
+			padding-bottom: $margin;
+			font-size: 14px;
+			span.lnr{ 
+				@include icon-btn($dark-emerald, white); 
+				float: right;
+			}
+		}
+		article{
+			div.medias{
+				position: relative;
+				overflow: scroll;
+				white-space: nowrap;
+				border-bottom: 1px solid white;
+				padding: $margin 0px;
+				div.media{
+					display: inline-block;
+					margin: 0px $margin;
+					max-height: 300px;
+					position: relative;
+					@include box-shadow($shadow-blur-green);	
+					img{
+						max-height: 300px;
+					}
+					div.shape{
+						position: absolute;
+						top: 0; left: 0;
+						width: 100%; height: 100%;
+						opacity: 0;
+						background-color: rgba(151, 196, 193, 0.6);
+						cursor: pointer;
+						@include transition(all $transition);
+						span.lnr{
+							position: absolute;
+							top: 50%; left: 50%;
+							@include transform(translate(-50%, -50%));
+							@include icon-btn(white, white); 
+							font-size: 45px;
+							border: 3px solid white;
+							border-radius: 100%;
+							padding: 0em;
+						}
+					}
+					@media #{$gt-sm}{
+						&:hover{
+							div.shape{
+								opacity: 1;
+								span.lnr{padding: 0.2em;}
+							}							
+						}
+					}
+
+				}
+			}
+		}
+		nav{
+			font-size: 12px;
+			padding: $margin 0;
+			@include clear-both();
+			div.pagination{
+				span.lnr{
+					@include icon-btn($dark-emerald, white); 
+					font-size: 15px;
+					position: relative;
+					top: 2px;
+					padding-left: 5px;
+					&:last-child{float: right;}
+				}
+			}
+		}	
+	}
+}

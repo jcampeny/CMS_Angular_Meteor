@@ -2,11 +2,21 @@ resume{
 	page-resume,
 	post-resume,
 	section-resume,
-	layout-resume{
-		width: 50%;
+	layout-resume,
+	media-resume{
+		width: 100%;
 		float: left;
 		margin-bottom: $margin;
-		&:nth-child(even){padding-left: $margin / 2}
-		&:nth-child(odd){padding-right: $margin / 2}
+		@include transition(all $transition-long);
+		@media #{$gt-sm}{
+			width: 50%;
+			&:nth-child(even){padding-left: $margin / 2}
+			&:nth-child(odd){padding-right: $margin / 2}
+		}
+	}
+	media-resume{
+		width: 100%;
+		padding-right: 0px !important;
+		padding-left: 0px !important;
 	}
 }
