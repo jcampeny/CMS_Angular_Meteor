@@ -1,0 +1,20 @@
+<section class="page-resume-container">
+	<header>Posts <span class="lnr lnr-file-add"></span></header>
+	<article>
+		<ul>
+			<li ng-repeat="post in postResume.posts">
+				<span class="name">{{post.name}}</span>
+				<span class="lnr lnr-trash delete"></span>
+				<span class="lnr lnr-pencil edit"></span>
+			</li>
+		</ul>
+	</article>
+	<nav>
+		<div class="pagination">
+			<span class="lnr lnr-chevron-left"></span>
+			<span class="actual-page">{{postResume.page}} /</span>
+			<span class="total-pages">{{postResume.totalPages}}</span>
+			<span class="lnr lnr-chevron-right"></span>
+		</div>
+	</nav>
+</section>

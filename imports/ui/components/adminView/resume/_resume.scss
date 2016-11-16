@@ -1,6 +1,10 @@
 resume{
-	page-resume{
+	page-resume,
+	post-resume{
 		width: 50%;
 		float: left;
+		margin-bottom: $margin;
+		&:nth-child(even){padding-left: $margin / 2}
+		&:nth-child(odd){padding-right: $margin / 2}
 	}
 }
