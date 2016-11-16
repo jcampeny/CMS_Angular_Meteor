@@ -21,7 +21,7 @@ function config ($stateProvider){
 		template: 
 			'<header-options></header-options>'+
 			'<navigation></navigation>'+
-			'<div ui-view=""></div>',
+			'<div ui-view="" class="views-container"></div>',
 		abstract: true,
 		resolve : {
 			currentUser($q){

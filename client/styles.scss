@@ -14,4 +14,11 @@ body, html{
 
 div.admin-view-facade{
 	position: relative;
+	div.views-container{
+		width: calc(100% - #{$navigation-width});
+		position: relative;
+		top: $header-height;
+		left: $navigation-width;
+		padding: $margin;
+	}
 }
