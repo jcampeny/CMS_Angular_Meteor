@@ -10,6 +10,26 @@ class PageResume{
 		'ngInject';
 
 		$reactive(this).attach($scope);
+
+		this.page = 1;
+		this.perPage = 4;
+
+		// this.helpers({
+		// 	pages(){
+		// 		return Pages.found({
+		// 		}, {
+		// 			limit : parseInt(this.getReactively('perPage')),
+		// 			skip : parseInt((this.getReactively('page') - 1) * this.perPage)
+		// 		});
+		// 	}
+		// });
+		this.pages = [
+			{ _id : 'V2UYB9834YBV43', name : 'Page 1'},
+			{ _id : '4C9M8G34C3MHGY', name : 'Page 2'},
+			{ _id : '84HGU9NRECMW2F', name : 'Page 3'},
+			{ _id : '2H48G934VB3434', name : 'Page 4'}
+		];
+		this.totalPages = 10;
 	}
 }
 
@@ -20,5 +40,5 @@ export default angular.module(name, [
 ]).component(name, {
 	template,
 	controllerAs : name,
-	controller : pageResume
+	controller : PageResume
 });
