@@ -15,14 +15,23 @@ class AdminViewFacade {
 		$reactive(this).attach($scope);
 
 		this.root = $rootScope;
+		this.scope = $scope;
+		this.location = $location;
 
-		viewController.checkUser(Meteor.userId(), $location.url())
-			.catch((data)=>{
-				this.root.$broadcast('$stateChangeError',{
-					error : data.reason, 
-					redirect : data.redirectTo
-				});
-			});
+		//check if user can view the new state on view change
+		this.scope
+			.$watch(
+				() => this.location.url(), 
+				(newState, oldState) => {
+					viewController.checkUser(Meteor.userId(), newState)
+						.catch((error)=>{
+							this.root.$broadcast('$stateChangeError',{
+								error : error.reason, 
+								redirect : error.redirectTo
+							});
+						});
+				}
+			);	
 	}
 };
 
