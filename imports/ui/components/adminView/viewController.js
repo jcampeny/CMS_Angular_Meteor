@@ -1,4 +1,4 @@
-//AdminViewFacade's config
+//CMS views
 function config ($stateProvider){
 	'ngInject';
 
@@ -36,6 +36,22 @@ function config ($stateProvider){
 	.state('home.resume', {
 		url : '',
 		template : '<resume></resume>'
+	})
+	.state('home.page', {
+		url : 'create-page',
+		template : '<page-creation></page-creation>'
+	})
+	.state('home.section', {
+		url : 'edit-sections',
+		template : '<sections-edit></sections-edit>'
+	})
+	.state('home.layout', {
+		url : 'create-layout',
+		template : '<layout-creation></layout-creation>'
+	})
+	.state('home.media', {
+		url : 'media',
+		template : '<media-section></media-section>'
 	});
 }
 
