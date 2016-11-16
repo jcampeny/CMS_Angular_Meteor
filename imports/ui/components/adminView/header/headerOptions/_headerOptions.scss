@@ -1,7 +1,12 @@
 header-options{
 	header{
 		height: $header-height;
+		width: 100%;
 		background-color: $gray;
+		position: fixed;
+		top:0px; left: 0px;
+		@include box-shadow($navigation-width + 1 0px 15px 0px rgba(50,50,50,50.75));
+		z-index: 2;
 		section.logo{
 			width: 200px;
 			float: left;
