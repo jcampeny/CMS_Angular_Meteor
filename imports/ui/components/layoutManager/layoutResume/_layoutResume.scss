@@ -1,0 +1,89 @@
+layout-resume{
+	section.layout-resume-container{
+		display: block;
+		background-color: $black;
+		padding: $margin $margin 0px;
+		@include box-shadow($shadow-blur);	
+		header{
+			border-bottom: 1px solid white;
+			padding-bottom: $margin;
+			font-size: 14px;
+			span.lnr{ 
+				@include icon-btn($dark-emerald, white); 
+				float: right;
+			}
+		}
+		article{
+			ul{
+				list-style: none;
+				padding: 0px;
+				margin: 0px;
+				font-size: 12px;
+				li{
+					padding: $margin $margin;
+					border-bottom: 1px solid white;
+					@include transition(all $transition);
+					@media #{$gt-sm}{
+						&:hover{
+							//background-color: rgba(87, 166, 158, 0.1);
+							background-color: rgba(151, 196, 193, 0.3);
+							span.lnr{opacity: 1;}
+						}
+					}
+					span.lnr{
+						@include icon-btn(white, $dark-emerald); 
+						font-size: 15px;
+						padding-left: 12px;
+						float: right;
+						@media #{$gt-sm}{
+							opacity: 0;
+						}
+					}
+				}
+			}
+		}
+		nav{
+			font-size: 12px;
+			padding: $margin 0;
+			@include clear-both();
+			div.pagination{
+				float: right;
+				display: inline-block;
+				span.lnr{
+					@include icon-btn($dark-emerald, white); 
+					font-size: 15px;
+					position: relative;
+					top: 2px;
+					padding-left: 5px;
+					&:first-child{padding-right: 5px;}
+				}
+			}
+			div.filter-by{
+				float: left;
+				display: inline-block;
+				span.tag{
+					border: 1px solid $dark-emerald;
+					color: $dark-emerald;
+					padding: 0.4em 0.9em;
+					margin: 0px 5px;
+					cursor: pointer;
+					@include transition(all $transition);
+					@media #{$gt-sm}{
+						&:hover{
+							color: white;
+							background-color: rgba(151, 196, 193, 0.3);
+						}
+					}
+					&:focus {
+					    outline: none;
+					    border: 1;
+					}
+					&.active{
+						color: white;
+						background-color: $dark-emerald;
+					}
+				}
+			}
+		}	
+	}
+}
