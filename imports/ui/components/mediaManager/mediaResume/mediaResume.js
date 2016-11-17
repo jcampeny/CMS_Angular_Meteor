@@ -11,9 +11,6 @@ class MediaResume{
 
 		$reactive(this).attach($scope);
 
-		this.page = 1;
-		this.perPage = 4;
-
 		// this.helpers({
 		// 	sections(){
 		// 		return Sections.found({
@@ -23,12 +20,6 @@ class MediaResume{
 		// 		});
 		// 	}
 		// });
-		this.sections = [
-			{ _id : 'V2UYB9834YBV43', name : 'Section 1'},
-			{ _id : '4C9M8G34C3MHGY', name : 'Section 2'},
-			{ _id : '84HGU9NRECMW2F', name : 'Section 3'},
-			{ _id : '2H48G934VB3434', name : 'Section 4'}
-		];
 
 		this.medias = [
 			{ _id : 'V2UYB9834YBV43', name : 'Media 1', src: '/img/pugs/pug-1.jpg'},
@@ -41,7 +32,6 @@ class MediaResume{
 			{ _id : '2H48G934VB3434', name : 'Media 8', src: '/img/pugs/pug-8.jpg'},
 			{ _id : '2H48G934VB3434', name : 'Media 9', src: '/img/pugs/pug-9.jpg'}
 		];
-		this.totalPages = 10;
 	}
 }
 
