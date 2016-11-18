@@ -62,26 +62,7 @@ layout-resume{
 				float: left;
 				display: inline-block;
 				span.tag{
-					border: 1px solid $dark-emerald;
-					color: $dark-emerald;
-					padding: 0.4em 0.9em;
-					margin: 0px 5px;
-					cursor: pointer;
-					@include transition(all $transition);
-					@media #{$gt-sm}{
-						&:hover{
-							color: white;
-							background-color: rgba(151, 196, 193, 0.3);
-						}
-					}
-					&:focus {
-					    outline: none;
-					    border: 1;
-					}
-					&.active{
-						color: white;
-						background-color: $dark-emerald;
-					}
+					@extend .cms-tag;
 				}
 			}
 		}	

@@ -89,6 +89,9 @@ md-input-container{
     label{color: $dark-emerald;}
     input{border-bottom: 1px solid $dark-emerald;}
   }
+  .md-input-focused{
+    label{color: $dark-emerald !important;}
+  }
 }
 
 //buttons
@@ -108,10 +111,25 @@ md-input-container{
   }
 }
 
+@mixin btn-mix($color){
+  background-color: $dark-emerald;
+  color: $color;
+  border: 1px solid $dark-emerald;
+  padding: 0.8em 1.8em;
+  font-size: 10px;
+  cursor: pointer;
+  @include transition(all $transition);
+  @media #{$gt-sm}{
+    &:hover{
+      background-color: rgba(151, 196, 193, 0.3);
+      @include box-shadow(0px 0px 15px 0px rgba(87, 166, 158, 0.8));
+    }
+  }
+}
 //error text
 .error-cms{
   color: $red;
-  background-color: rgba(195, 63, 65, 0.1);;
+  background-color: rgba(195, 63, 65, 0.1);
   border-left: 5px solid $red;
   padding: 0.5em;
   text-align: left;
@@ -128,6 +146,30 @@ md-input-container{
       color: $hover-color;
     }
   }
+}
+
+// tags
+.cms-tag{
+  border: 1px solid $dark-emerald;
+  color: $dark-emerald;
+  padding: 0.4em 0.9em;
+  margin: 0px 5px;
+  cursor: pointer;
+  @include transition(all $transition);
+  @media #{$gt-sm}{
+    &:hover{
+      color: white;
+      background-color: rgba(151, 196, 193, 0.3);
+    }
+  }
+  &:focus {
+      outline: none;
+      border: 1;
+  }
+  &.active{
+    color: white;
+    background-color: $dark-emerald;
+  }  
 }
 
 
