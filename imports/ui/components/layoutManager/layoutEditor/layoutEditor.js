@@ -6,12 +6,13 @@ import { Meteor } from 'meteor/meteor';
 import template from './layoutEditor.html';
 
 class LayoutEditor{
-	constructor($scope, $reactive, layoutEditor){
+	constructor($scope, $reactive, layoutEditor, childrenLayout){
 		'ngInject';
 
 		$reactive(this).attach($scope);
 
 		this.layoutEditor = layoutEditor;
+		this.childrenLayout = childrenLayout;
 
 		this.handleEvents();
 
@@ -25,15 +26,12 @@ class LayoutEditor{
 			layout : 'row',
 			html : []
 		};
-
-
 	}
 
 	parseLayout(layout){
 		Meteor.call('layoutParser', layout,
 			(error, response) => {
-							console.log(this.layoutContainer);
-				console.log(response, error);
+				//TODO
 			});
 	}
 
@@ -41,48 +39,12 @@ class LayoutEditor{
 		this.layoutContainer.html.splice(index, 1);
 	}
 
-	createPlainText(){
-		this.plainText++;
-		var styleClass = 'G35245DF3R'; //generate class on CSS service
-		const element = {
-			'<>': 'article', 
-			type : 'Plain text',
-			class: styleClass, 
-			flex : 100,
-			html:'Hello world! Edit this :)'
-		};
-
-		this.layoutContainer.html.push(element);
-	}	
-
-	createHeaderText(){
-		this.headerText++;
-		var styleClass = 'G35245DF3R'; //generate class on CSS service
-		const element = {
-			'<>': 'article', 
-			type : 'Header',
-			class: styleClass, 
-			flex : 100,
-			html:"I'm a header!"
-		};
-
-		this.layoutContainer.html.push(element);
-	}	
-
 	handleEvents(){
-		this.layoutEditor.onAddElement((layoutChildrenType) => {
-			switch(layoutChildrenType){
-				case 'plainText':
-					this.createPlainText();
-					break;
-				case 'headerText':
-					this.createHeaderText();
-					break;
-				case 'media':
-					this.media++;
-					break;
-			}	
-			this.parseLayout(this.layoutContainer);
+		this.layoutEditor.onAddElement((type) => {
+			this.childrenLayout.createElement(type, (newElement) => {
+				this.layoutContainer.html.push(newElement);
+				//this.parseLayout(this.layoutContainer);
+			});
 		});
 	}
 }

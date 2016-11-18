@@ -7,7 +7,8 @@ layout-editor{
 		border: 1px solid $light-emerald;
 		position: relative;
 		margin-top: $margin;
-		padding-top: $margin;
+		padding-top: $margin + 10;
+		padding-right: $mini-padding;
 		@include clear-both();
 		@include box-shadow($shadow-container);
 		div.parent-name{
@@ -31,7 +32,7 @@ layout-editor{
 			display: inline-block;
 			font-size: 10px;
 			position: absolute;
-			top: 0px; left: 70px;
+			top: 0px; left: 110px;
 			span.ratio{
 				position: relative;
 				top: -2px;
@@ -49,10 +50,10 @@ layout-editor{
 			position: relative;
 			background-color: $gray;
 			min-height: 30px;
-			padding: 5px;
+			padding: $mini-padding;
 			padding-top: 30px;
-			border: 5px solid $black;
-			float: left;
+			border-left: $mini-padding solid $black;
+			border-bottom: $mini-padding solid $black;
 			div.children-type{@extend div.parent-name;}
 			div.options{
 				@extend div.options;

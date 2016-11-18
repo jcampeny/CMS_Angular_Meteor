@@ -1,11 +1,11 @@
-<section class="parent-layout-container">
+<section class="parent-layout-container" layout="row" layout-wrap>
 	<div class="parent-name">{{layoutEditor.name || 'Layout Parent'}}</div>
 	<div class="options">
 		<span class="lnr lnr-magic-wand"></span>
 	</div>
 	<div class="children-layout-container" 
 		ng-repeat="children in layoutEditor.layoutContainer.html"
-		style="width: {{children.flex}}%;">
+		flex="{{children.flex}}">
 		<div class="children-type">{{children.type}}</div>
 		<div class="width-controller">
 			<span class="lnr down" 
@@ -18,7 +18,7 @@
 			<span class="lnr lnr-magic-wand"></span>
 			<span ng-click="layoutEditor.removeChildren($index)" class="lnr lnr-cross"></span>
 		</div>
-		<input type="text" ng-model="children.html">
+		<children-layout meta-data="children"></children-layout>
 	</div>
 </section>
 
