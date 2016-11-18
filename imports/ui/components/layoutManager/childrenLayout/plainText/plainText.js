@@ -12,14 +12,18 @@ class PlainText {
 };
 
 class PlainTextService {
-	constructor(){}
+	constructor(cssManager){
+		'ngInject';
+
+		this.css = cssManager;
+	}
 	
-	createElement(){
-		var styleClass = 'G35245DF3R'; //generate class on CSS service
+	createElement()
+	{
 		const metaElement = {
 			'<>': 'article', 
 			type : name,
-			class: styleClass, 
+			class: this.css.generateClassId(), 
 			flex : 100,
 			html:'Hello from service!'
 		};

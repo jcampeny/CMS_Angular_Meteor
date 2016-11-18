@@ -6,13 +6,14 @@ import { Meteor } from 'meteor/meteor';
 import template from './layoutEditor.html';
 
 class LayoutEditor{
-	constructor($scope, $reactive, layoutEditor, childrenLayout){
+	constructor($scope, $reactive, layoutEditor, childrenLayout, cssManager){
 		'ngInject';
 
 		$reactive(this).attach($scope);
 
 		this.layoutEditor = layoutEditor;
 		this.childrenLayout = childrenLayout;
+		this.css = cssManager;
 
 		this.handleEvents();
 
@@ -22,7 +23,7 @@ class LayoutEditor{
 
 		this.layoutContainer = {
 			'<>' : 'section',
-			class : 'asdasd',
+			class : this.css.generateClassId(),
 			layout : 'row',
 			html : []
 		};
@@ -31,7 +32,7 @@ class LayoutEditor{
 	parseLayout(layout){
 		Meteor.call('layoutParser', layout,
 			(error, response) => {
-				//TODO
+				
 			});
 	}
 

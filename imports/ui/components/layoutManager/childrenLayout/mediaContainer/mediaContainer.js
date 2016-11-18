@@ -12,18 +12,22 @@ class MediaContainer {
 };
 
 class MediaContainerService {
-	constructor(){}
+	constructor(cssManager){
+		'ngInject';
+
+		this.css = cssManager;
+	}
 	
-	createElement(){
-		var styleClass = 'G35245DF3R'; //generate class on CSS service
+	createElement()
+	{
 		const metaElement = {
 			'<>': 'article', 
 			type : name,
-			class: styleClass, 
+			class: this.css.generateClassId(), 
 			flex : 100,
 			html: {
 				'<>' : 'img',
-				src : '/img/pugs/pug-4.jpg',
+				src : '/img/pugs/pug-' + (Math.floor(Math.random()*8)+1) +'.jpg',
 				alt : 'Yes, another pug'
 			}
 		};

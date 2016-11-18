@@ -12,15 +12,18 @@ class HeaderText {
 };
 
 class HeaderTextService {
-	constructor(){
+	constructor(cssManager){
+		'ngInject';
+
+		this.css = cssManager;
 	}
 
-	createElement(){
-		var styleClass = 'HBVUVBERBRTB'; //generate class on CSS service
+	createElement()
+	{
 		const metaElement = {
 			'<>': 'article', 
 			type : name,
-			class: styleClass, 
+			class: this.css.generateClassId(), 
 			flex : 100,
 			html:"I'm a header from service!"
 		};

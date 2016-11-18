@@ -6,6 +6,7 @@ import { name as LayoutCreation } from './layoutCreation/layoutCreation';
 import { name as LayoutEditor } from './layoutEditor/layoutEditor';
 
 import { name as ChildrenLayout } from './childrenLayout/childrenLayout';
+import { name as CssManager } from './cssManager/cssManager';
 
 class LayoutFacade {};
 
@@ -16,7 +17,8 @@ export default angular.module(name, [
 	LayoutResume,
 	LayoutCreation,
 	LayoutEditor,
-	ChildrenLayout
+	ChildrenLayout,
+	CssManager
 ]).component(name, {
 	controllerAs : name,
 	controller : LayoutFacade
