@@ -2,6 +2,7 @@ import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 
 import { Meteor } from 'meteor/meteor';
+import {} from 'angular-ui-sortable';
 
 import template from './layoutEditor.html';
 
@@ -71,7 +72,8 @@ class LayoutEditorService{
 const name = 'layoutEditor';
 
 export default angular.module(name, [
-	angularMeteor
+	angularMeteor,
+	'ui.sortable'
 ]).component(name, {
 	template,
 	bindings : {

@@ -1,10 +1,10 @@
-<section class="parent-layout-container" layout="row" layout-wrap>
+<section class="parent-layout-container" layout="row" layout-wrap ui-sortable ng-model="layoutEditor.layoutContainer.html">
 	<div class="parent-name">{{layoutEditor.name || 'Layout Parent'}}</div>
 	<div class="options">
 		<span class="lnr lnr-magic-wand" ng-click="layoutEditor.css.openCssEditor($event, layoutEditor.layoutContainer);"></span>
 	</div>
 	<div class="children-layout-container" 
-		ng-repeat="children in layoutEditor.layoutContainer.html"
+		ng-repeat="children in layoutEditor.layoutContainer.html track by $index"
 		flex="{{children.flex}}">
 		<div class="children-type">{{children.type}}</div>
 		<div class="width-controller">

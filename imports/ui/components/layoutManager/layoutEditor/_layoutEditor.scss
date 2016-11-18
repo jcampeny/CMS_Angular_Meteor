@@ -54,6 +54,7 @@ layout-editor{
 			padding-top: 30px;
 			border-left: $mini-padding solid $black;
 			border-bottom: $mini-padding solid $black;
+			cursor: move;
 			div.children-type{@extend div.parent-name;}
 			div.options{
 				@extend div.options;
