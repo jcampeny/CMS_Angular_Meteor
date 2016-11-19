@@ -8,6 +8,8 @@ class PlainText {
 		'ngInject';
 
 		$reactive(this).attach($scope);
+
+		this.lockTextEditor = true;
 	}
 };
 
@@ -25,7 +27,7 @@ class PlainTextService {
 			type : name,
 			class: this.css.generateClassId(), 
 			flex : 100,
-			html:'Hello from service!'
+			html:'<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet provident qui dolorum. Ab optio reprehenderit vel, eveniet aut cum alias, natus, sed quasi dicta illum ducimus, itaque recusandae. Sunt, soluta.</p>'
 		};
 		return metaElement;
 	}

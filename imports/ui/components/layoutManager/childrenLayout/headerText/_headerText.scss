@@ -1,2 +1,17 @@
 header-text{
+	span.lnr{
+		position: absolute;
+		display: block;
+		bottom: 5px;
+		right: 5px;
+		@include icon-btn($light-emerald, white);
+	}
+
+	$options: 'html' 'p' 'ul' 'ol' 'insertVideo' 'insertLink' 'wordcount' 'charcount';
+
+	@each $option in $options{
+		[name=#{$option}]{
+			display: none !important;
+		}
+	}
 }

@@ -24,12 +24,14 @@ ddp-server@1.2.10
 deps@1.0.12
 diff-sequence@1.0.6
 dotansimha:accounts-ui-angular@0.0.4
+dyaa:text-angular@1.4.6_5
 ecmascript@0.5.8
 ecmascript-runtime@0.3.14
 ejson@1.0.12
 email@1.1.17
 es5-shim@4.6.14
 fastclick@1.0.12
+fortawesome:fontawesome@4.7.0
 fourseven:scss@3.8.1
 geojson-utils@1.0.9
 hot-code-push@1.0.4
@@ -83,6 +85,7 @@ templating@1.1.14
 templating-tools@1.0.5
 tmeasday:check-npm-versions@0.1.1
 tracker@1.1.0
+twbs:bootstrap@3.3.6
 ui@1.0.12
 underscore@1.0.9
 urigo:static-html-compiler@0.1.8

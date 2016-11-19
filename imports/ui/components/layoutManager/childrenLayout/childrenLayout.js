@@ -29,6 +29,7 @@ const name = 'childrenLayout';
 
 export default angular.module(name, [
 	angularMeteor,
+	'textAngular',
 	PlainText,
 	HeaderText,
 	MediaContainer
@@ -39,4 +40,25 @@ export default angular.module(name, [
 	},
 	controllerAs : name,
 	controller : ChildrenLayout
-}).service(name, ChildrenLayoutService);
+}).service(name, ChildrenLayoutService)
+.config(config);
+
+function config($provide){//textAngular configuration
+	'ngInject';
+	$provide.decorator('taOptions', ['taRegisterTool', '$delegate', 
+		(taRegisterTool, taOptions) => { // $delegate is the taOptions we are decorating
+	        taOptions.toolbar = [
+	            ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'pre', 'quote'],
+	            ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol', 'redo', 'undo'],
+	            ['html', 'insertLink', 'insertVideo', 'wordcount', 'charcount']
+	        ];
+	        return taOptions;
+    	}
+    ]);
+}
+
+
+
+
+
+

@@ -8,6 +8,8 @@ class HeaderText {
 		'ngInject';
 
 		$reactive(this).attach($scope);
+
+		this.lockTextEditor = true;
 	}
 };
 
@@ -25,7 +27,7 @@ class HeaderTextService {
 			type : name,
 			class: this.css.generateClassId(), 
 			flex : 100,
-			html:"I'm a header from service!"
+			html:"<h2>Hello world!</h2>"
 		};
 		return metaElement;
 	}

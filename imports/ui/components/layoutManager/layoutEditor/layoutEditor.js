@@ -33,7 +33,7 @@ class LayoutEditor{
 	parseLayout(layout){
 		Meteor.call('layoutParser', layout,
 			(error, response) => {
-				
+				console.log(response);
 			});
 	}
 
@@ -45,7 +45,7 @@ class LayoutEditor{
 		this.layoutEditor.onAddElement((type) => {
 			this.childrenLayout.createElement(type, (newElement) => {
 				this.layoutContainer.html.push(newElement);
-				//this.parseLayout(this.layoutContainer);
+				this.parseLayout(this.layoutContainer);
 			});
 		});
 	}

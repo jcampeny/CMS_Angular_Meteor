@@ -31,7 +31,7 @@ class CssManager{
 	{
 		this.root.$on('openCssEditor', (event, args) => {
 			if(args.layout.class){
-				this.layoutToEdit = args.layout;console.log(this.layoutToEdit)
+				this.layoutToEdit = args.layout;
 				this.openCssEditor();
 			}
 		});

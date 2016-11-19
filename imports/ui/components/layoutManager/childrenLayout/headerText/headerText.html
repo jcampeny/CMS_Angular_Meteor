@@ -1,1 +1,5 @@
-<input type="text" ng-model="headerText.metaData.html">
+<div ng-if="!headerText.lockTextEditor" text-angular ng-model="headerText.metaData.html"></div>
+<div ng-if="headerText.lockTextEditor" ng-bind-html="headerText.metaData.html"></div>
+<span ng-click="headerText.lockTextEditor = !headerText.lockTextEditor" 
+	  ng-class="(headerText.lockTextEditor) ? 'lnr-pencil' : 'lnr-checkmark-circle'"
+	   class="lnr"></span>
