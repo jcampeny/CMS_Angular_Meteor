@@ -19,6 +19,15 @@ layout-editor{
 			padding: 0.4em 0.6em;
 			font-size: 12px;
 		}
+		div.new-elements{
+			position: absolute;
+			top: $mini-padding; left: 50%;
+			@include transform(translateX(-50%));
+			span.lnr{
+				@include icon-btn($light-emerald, $dark-emerald);
+				margin: $mini-padding / 2;
+			}
+		}
 		div.options{
 			position: absolute;
 			top: 0px; right: 0px;

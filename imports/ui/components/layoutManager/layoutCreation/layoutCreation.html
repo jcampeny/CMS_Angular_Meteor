@@ -17,21 +17,6 @@
 			ng-class="{'active' : layoutCreation.layoutType == 'other'}"
 			ng-click="layoutCreation.layoutType = 'other'">Other</span>
 	</article>
-	<article class="add-elements">
-		<div class="explanation">Add some elements to Layout:</div>
-		<a ng-click="layoutCreation.layoutEditor.addElement('plainText')">
-			<span class="lnr lnr-text-align-justify"></span>
-			<span>Plain text</span>
-		</a>
-		<a ng-click="layoutCreation.layoutEditor.addElement('headerText')">
-			<span class="lnr lnr-bold"></span>
-			<span>Header text</span>
-		</a>
-		<a ng-click="layoutCreation.layoutEditor.addElement('mediaContainer')">
-			<span class="lnr lnr-picture"></span>
-			<span>Image</span>
-		</a>
-	</article>
 	<article class="layout-state">
 		<layout-editor name="layoutCreation.layoutName"></layout-editor>
 	</article>
