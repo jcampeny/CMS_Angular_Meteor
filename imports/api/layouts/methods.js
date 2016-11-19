@@ -1,18 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 
 import { Layouts } from './collection';
-
-import json2html from 'node-json2html';
 	
-export function layoutParser(layoutObject){
-
-	//REMEMBER REMOVE FROM ALL CHILDRENS :
-	//type, $$hashKey, metadata, _id
-	var html = json2html.transform([{}], layoutObject);
-	
-	return html;
-}
-
 export function insertLayout(newLayout){
 	if (!this.userId)
 		throw new Meteor.Error(400, 'You must be logged in');
@@ -48,12 +37,8 @@ export function updateLayout(layout){
 	if (layout.metaData.name == '')
 		throw new Meteor.Error(400, 'You must assign a name to this Layout');
 
-	const layoutExist = Layouts.find({
-		_id : layout._id
-	}).count();
-
-	if(!layoutExist)
-		throw new Meteor.Error(400, 'This layout does not exist');
+	//if(!Layouts.findOne({_id : layout._id}))
+		//throw new Meteor.Error(400, 'This layout does not exist');
 
 	Layouts.update({
 		_id : layout._id
@@ -62,8 +47,17 @@ export function updateLayout(layout){
 	});
 }
 
+export function getLayout(id){
+	if (!id)
+		throw new Meteor.Error(400, 'This id is invalid');
+
+	return Layouts.findOne({
+		_id : id
+	});
+}
+
 Meteor.methods({
-	layoutParser,
 	insertLayout,
-	updateLayout
+	updateLayout,
+	getLayout
 });

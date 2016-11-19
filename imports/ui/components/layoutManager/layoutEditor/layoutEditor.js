@@ -9,28 +9,19 @@ import template from './layoutEditor.html';
 import { LayoutEditorService } from './layoutEditorService';
 
 class LayoutEditor{
-	constructor($scope, $reactive, $rootScope, childrenLayout, cssManager, layoutEditor){
+	constructor($scope, $reactive, $rootScope, childrenLayout, cssManager, layoutEditor, $stateParams)
+	{
 		'ngInject';
 
 		$reactive(this).attach($scope);
 
+		this.layoutId 		= $stateParams._id;
 		this.root 			= $rootScope;
 		this.childrenLayout = childrenLayout;
 		this.css 			= cssManager;
 		this.layoutEditor 	= layoutEditor;
 
-		this.layoutContainer = {
-			'<>'     : 'section',
-			class    : this.css.generateClassId(),
-			layout   : 'row',
-			html   	 : [],
-			metaData : {
-				name   : this.name,
-				owner  : Meteor.userId(),
-				public : false
-			}
-		};
-
+		this.__constructLayout();
 		this.handleEvents();
 	}
 
@@ -50,14 +41,16 @@ class LayoutEditor{
 					}
 				});
 		} else {
-			this.update();
+			this.update(callback);
 		}
 	}
 
-	update(){
+	update(callback){
 		Meteor.call('updateLayout', this.layoutContainer,
 			(error, response) => {
-				console.log(error, response);
+				if(typeof callback == 'function')
+					callback(error, response);
+				
 			});
 	}
 
@@ -71,6 +64,31 @@ class LayoutEditor{
 			this.layoutEditor.parseLayout(this.layoutContainer);
 		});
 	}
+	
+	__constructLayout(){
+		if(this.layoutId) 
+		{ //if ids layout exist... go search in DB
+			Meteor.call('getLayout', this.layoutId, 
+				(error, response)=>{
+					this.name = response.metaData.name;
+					this.layoutContainer = response;
+				});
+		} 
+		else 
+		{ //create a standard layout to be created
+			this.layoutContainer = {
+				'<>'     : 'section',
+				class    : this.css.generateClassId(),
+				layout   : 'row',
+				html   	 : [],
+				metaData : {
+					name   : this.name,
+					owner  : Meteor.userId(),
+					public : false
+				}
+			};				
+		}
+	}		
 
 	handleEvents(){
 		this.layoutEditor.onSaveLayoutFromOutside(
@@ -92,7 +110,7 @@ export default angular.module(name, [
 ]).component(name, {
 	template,
 	bindings : {
-		name : '<'
+		name : '='
 	},
 	controllerAs : name,
 	controller : LayoutEditor

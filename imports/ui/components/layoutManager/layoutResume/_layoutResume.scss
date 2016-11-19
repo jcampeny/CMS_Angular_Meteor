@@ -22,7 +22,7 @@ layout-resume{
 				li{
 					padding: $margin $margin;
 					border-bottom: 1px solid white;
-					@include transition(all $transition);
+					//@include transition(all $transition);
 					@media #{$gt-sm}{
 						&:hover{
 							//background-color: rgba(87, 166, 158, 0.1);

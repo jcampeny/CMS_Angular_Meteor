@@ -5,39 +5,50 @@ import { Meteor } from 'meteor/meteor';
 
 import template from './layoutResume.html';
 
+import { Layouts } from '../../../../api/layouts';
+
 class LayoutResume{
 	constructor($scope, $reactive){
 		'ngInject';
 
 		$reactive(this).attach($scope);
-
-		this.page = 1;
+		
 		this.perPage = 4;
+		this.page = 1;
+		this.sort = {
+			'metaData.name' : 1
+		};
+		this.searchText = '';
+		
 
-		// this.helpers({
-		// 	layouts(){
-		// 		return Layouts.found({
-		// 		}, {
-		// 			limit : parseInt(this.getReactively('perPage')),
-		// 			skip : parseInt((this.getReactively('page') - 1) * this.perPage)
-		// 		});
-		// 	}
-		// });
+		this.subscribe('layouts');
 
-		this.layouts = [
-			{ _id : 'V2UYB9834YBV43', name : 'Layout 1'},
-			{ _id : '4C9M8G34C3MHGY', name : 'Layout 2'},
-			{ _id : '84HGU9NRECMW2F', name : 'Layout 3'},
-			{ _id : '2H48G934VB3434', name : 'Layout 4'}
-		];
-
-		this.totalPages = 10;
+		this.helpers({
+			layouts(){
+				return Layouts.find({}, {
+					limit : parseInt(this.perPage),
+					skip : parseInt((this.getReactively('page') - 1) * this.perPage),
+					sort : this.getReactively('sort')
+				});
+			},
+			totalPages(){
+				return Math.ceil(Layouts.find({}).count() / this.perPage);
+			}
+		});
 
 		this.filterBy = '';
 	}
 
 	setFilter(filter = ''){
 		this.filterBy = (this.filterBy == filter) ? '' : filter;
+	}
+
+	movePage(direction) {
+		if(direction == 'next')
+			this.page = (this.totalPages > this.page) ? (this.page + 1) : this.page;
+		
+		if(direction == 'prev')
+			this.page = (this.page > 1) ? (this.page - 1) : this.page;
 	}
 }
 

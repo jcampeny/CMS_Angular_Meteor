@@ -1,11 +1,11 @@
 <section class="layout-resume-container">
-	<header>Layouts <span class="lnr lnr-file-add"></span></header>
+	<header>Layouts <span class="lnr lnr-file-add" ui-sref="home.layouts.create"></span></header>
 	<article>
 		<ul>
 			<li ng-repeat="layout in layoutResume.layouts">
-				<span class="name">{{layout.name}}</span>
+				<span class="name">{{layout.metaData.name}}</span>
 				<span class="lnr lnr-trash delete"></span>
-				<span class="lnr lnr-pencil edit"></span>
+				<span class="lnr lnr-pencil edit" ui-sref="home.layouts.edit({_id : layout._id})"></span>
 			</li>
 		</ul>
 	</article>
@@ -22,10 +22,10 @@
 				ng-click="layoutResume.setFilter('other')">Others</span>
 		</div>
 		<div class="pagination">
-			<span class="lnr lnr-chevron-left"></span>
-			<span class="actual-page">{{layoutResume.page}} /</span>
+			<span class="lnr lnr-chevron-left" ng-click="layoutResume.movePage('prev')"></span>
+			<span class="actual-page" >{{layoutResume.page}} /</span>
 			<span class="total-pages">{{layoutResume.totalPages}}</span>
-			<span class="lnr lnr-chevron-right"></span>
+			<span class="lnr lnr-chevron-right" ng-click="layoutResume.movePage('next')"></span>
 		</div>
 	</nav>
 </section>
