@@ -11,6 +11,15 @@ layout-creation{
 			@extend md-input-container;
 			md-input-container{margin-bottom: 0px;}
 		}
+		article.save{
+			position: absolute;
+			top: $margin; right: $margin;
+			a{
+				@include btn-mix(white);
+				font-size: 14px;
+				padding: 0.4em 0.9em;
+			}
+		}
 		article.type{
 			margin-bottom: $margin;
 			span.tag{

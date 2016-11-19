@@ -20,7 +20,7 @@ class PlainTextService {
 		this.css = cssManager;
 	}
 	
-	createElement()
+	create()
 	{
 		const metaElement = {
 			'<>': 'article', 

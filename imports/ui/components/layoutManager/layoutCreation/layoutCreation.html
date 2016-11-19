@@ -17,6 +17,11 @@
 			ng-class="{'active' : layoutCreation.layoutType == 'other'}"
 			ng-click="layoutCreation.layoutType = 'other'">Other</span>
 	</article>
+	<article class="save">
+		<a ng-click="layoutCreation.save()">
+			<i class="fa fa-floppy-o" aria-hidden="true"></i> Save
+		</a>
+	</article>
 	<article class="layout-state">
 		<layout-editor name="layoutCreation.layoutName"></layout-editor>
 	</article>

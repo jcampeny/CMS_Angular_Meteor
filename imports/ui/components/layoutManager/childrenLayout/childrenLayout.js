@@ -19,9 +19,9 @@ class ChildrenLayoutService {
 		this.mediaContainer = mediaContainer;
 	}
 
-	createElement (type, callback) {
-		const newElement = this[type].createElement();
-		callback(newElement);
+	createChildren (type, callback) {
+		const newChildren = this[type].create();
+		callback(newChildren);
 	}
 };
 

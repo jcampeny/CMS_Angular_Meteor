@@ -6,31 +6,58 @@ import {} from 'angular-ui-sortable';
 
 import template from './layoutEditor.html';
 
+import { LayoutEditorService } from './layoutEditorService';
+
 class LayoutEditor{
-	constructor($scope, $reactive, childrenLayout, cssManager){
+	constructor($scope, $reactive, $rootScope, childrenLayout, cssManager, layoutEditor){
 		'ngInject';
 
 		$reactive(this).attach($scope);
 
+		this.root 			= $rootScope;
 		this.childrenLayout = childrenLayout;
-		this.css = cssManager;
-
-		this.plainText = 0;
-		this.headerText = 0;
-		this.media = 0;
+		this.css 			= cssManager;
+		this.layoutEditor 	= layoutEditor;
 
 		this.layoutContainer = {
-			'<>' : 'section',
-			class : this.css.generateClassId(),
-			layout : 'row',
-			html : []
+			'<>'     : 'section',
+			class    : this.css.generateClassId(),
+			layout   : 'row',
+			html   	 : [],
+			metaData : {
+				name   : this.name,
+				owner  : Meteor.userId(),
+				public : false
+			}
 		};
+
+		this.handleEvents();
 	}
 
-	parseLayout(layout){
-		Meteor.call('layoutParser', layout,
+	save(callback){
+		this.layoutContainer.metaData.name = this.name;
+
+		if(!this.layoutContainer._id){
+			Meteor.call('insertLayout', this.layoutContainer,
+				(error, response) => {
+					if(!error){
+						if(typeof callback == 'function'){
+							this.layoutContainer = response.layout;
+							callback(error, response);
+						}
+					} else {
+						console.log(error.reason);
+					}
+				});
+		} else {
+			this.update();
+		}
+	}
+
+	update(){
+		Meteor.call('updateLayout', this.layoutContainer,
 			(error, response) => {
-				console.log(response);
+				console.log(error, response);
 			});
 	}
 
@@ -38,13 +65,24 @@ class LayoutEditor{
 		this.layoutContainer.html.splice(index, 1);
 	}
 
-	addElement(type){
-		this.childrenLayout.createElement(type, (newElement) => {
-			this.layoutContainer.html.push(newElement);
-			this.parseLayout(this.layoutContainer);
+	addChildren(type){
+		this.childrenLayout.createChildren(type, (newChildren) => {
+			this.layoutContainer.html.push(newChildren);
+			this.layoutEditor.parseLayout(this.layoutContainer);
 		});
 	}
+
+	handleEvents(){
+		this.layoutEditor.onSaveLayoutFromOutside(
+			(name, callback) => {
+				if(name && name == this.name){
+					this.save(callback);
+				}
+			}
+		);
+	}
 }
+
 
 const name = 'layoutEditor';
 
@@ -58,6 +96,6 @@ export default angular.module(name, [
 	},
 	controllerAs : name,
 	controller : LayoutEditor
-});
+}).service(name, LayoutEditorService);
 
 

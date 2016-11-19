@@ -18,7 +18,7 @@ class MediaContainerService {
 		this.css = cssManager;
 	}
 	
-	createElement()
+	create()
 	{
 		const metaElement = {
 			'<>': 'article', 
