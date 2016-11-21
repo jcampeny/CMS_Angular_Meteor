@@ -59,17 +59,16 @@ export function getLayout(id){
 }
 
 export function removeLayout(layoutId){
-	if (!this.userId) {
+	if (!this.userId)
 		throw new Meteor.Error(400, 'You have to be logged in!');
-	}
 
-	const layout = Layouts.findOne(layoutId);
+	const layout = Layouts.findOne({_id : layoutId});
 
-	if(layout.metaData.owner !== this.userId){
+	if(layout && layout.metaData && layout.metaData.owner !== this.userId)
 		throw new Meteor.Error(400, 'No permissions to delete!');
-	}
+	
 
-	return Layouts.remove({"_id" : layout._id});
+	return Layouts.remove({"_id" : layoutId});
 }
 Meteor.methods({
 	insertLayout,

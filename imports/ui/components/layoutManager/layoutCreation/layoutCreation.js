@@ -6,12 +6,10 @@ import { Meteor } from 'meteor/meteor';
 import template from './layoutCreation.html';
 
 class LayoutCreation{
-	constructor($scope, $reactive, layoutFacade){
+	constructor($scope, $reactive){
 		'ngInject';
 
 		$reactive(this).attach($scope);
-
-		this.layoutFacade = layoutFacade;
 		
 		this.layoutName = 'Layout 1';
 		this.layoutType = 'other';

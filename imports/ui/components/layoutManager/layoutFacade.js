@@ -13,10 +13,14 @@ import { name as CssManager } from './cssManager/cssManager';
 class LayoutFacade {};
 
 class LayoutFacadeService {
-	constructor(booleanPopup){
+	constructor($rootScope, $reactive, booleanPopup, cssManager){
 		'ngInject';
 
+		//attach to $rootScope to digest after Meteor call
+		$reactive(this).attach($rootScope);
+
 		this.booleanPopup = booleanPopup;
+		this.css 	      = cssManager;
 	}
 
 	deleteLayout(layout, callback) {
@@ -29,7 +33,7 @@ class LayoutFacadeService {
 		this.booleanPopup.open(message, options, 
 			(response) => {
 				if(response === true){
-					Meteor.call('removeLayout', layout._id, 
+					this.call('removeLayout', layout._id, 
 						(error, response) => {
 							if(typeof callback == 'function')
 								callback(error, response);
@@ -42,7 +46,7 @@ class LayoutFacadeService {
 
 	save(layout, callback){
 		if(!layout._id){
-			Meteor.call('insertLayout', layout,
+			this.call('insertLayout', layout,
 				(error, response) => {
 					if(typeof callback == 'function')
 						callback(error, response);
@@ -55,7 +59,7 @@ class LayoutFacadeService {
 
 	update(layout, callback){
 		if(layout && layout._id){
-			Meteor.call('updateLayout', layout,
+			this.call('updateLayout', layout,
 				(error, response) => {
 					if(typeof callback == 'function')
 						callback(error, response);
@@ -66,8 +70,31 @@ class LayoutFacadeService {
 
 	}
 
+	getLayoutById(layoutId, callback) {
+		this.call('getLayout', layoutId, 
+			(error, response)=>{
+				if(typeof callback == 'function')
+					callback(error, response);
+			}
+		);
+	}
+
+	createEmptyLayout() {
+		return {
+			'<>'     : 'section',
+			class    : this.css.generateClassId(),
+			layout   : 'row',
+			html   	 : [],
+			metaData : {
+				name   : 'Layout name',
+				owner  : Meteor.userId(),
+				public : false
+			}
+		};
+	}
+
 	parseLayout(layout){
-		Meteor.call('layoutParser', layout,
+		this.call('layoutParser', layout,
 			(error, response) => {
 				//console.log(response);
 			});

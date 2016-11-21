@@ -55,8 +55,8 @@ class LayoutEditor{
 	createLayout(){
 		if(this.layoutId) 
 		{ //if ids layout exist... go search in DB
-			this.call('getLayout', this.layoutId, 
-				(error, response)=>{
+			this.layoutFacade.getLayoutById(this.layoutId,
+				(error, response) => {
 					this.name = response.metaData.name;
 					this.layoutContainer = response;
 				}
@@ -64,17 +64,7 @@ class LayoutEditor{
 		} 
 		else 
 		{ //create a standard layout to be created
-			this.layoutContainer = {
-				'<>'     : 'section',
-				class    : this.css.generateClassId(),
-				layout   : 'row',
-				html   	 : [],
-				metaData : {
-					name   : this.name,
-					owner  : Meteor.userId(),
-					public : false
-				}
-			};				
+			this.layoutContainer = this.layoutFacade.createEmptyLayout();				
 		}
 	}	
 
