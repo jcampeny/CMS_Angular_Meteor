@@ -3,52 +3,55 @@ import angularMeteor from 'angular-meteor';
 
 import { Meteor } from 'meteor/meteor';
 
-import template from './booleanPopup.html';
+import template from './popup.html';
 
 /* 
 	How to use it:
 
-	booleanPopup.open(message, options, 
+	popup.open(message, options, 
 		(response) => {
 			//...
 		});
 */
 
-class BooleanPopup{
-	constructor($scope, $reactive, $state, booleanPopup){
+class Popup{
+	constructor($scope, $reactive, $state, popup){
 		'ngInject';
 
 		$reactive(this).attach($scope);
 
-		this.service = booleanPopup;
+		this.service = popup;
 
 		this.message = '';
 		this.options = {
-			yes : 'yes',
-			no  : 'no'
+			yes : '',
+			no  : ''
 		};
 		this.callbackClose = {};
 
 		this.service.onPopupCall(
 			(message, options, callbackClose) => {
-				this.message = message;
-				this.options = options;
-				this.open(callbackClose);
-			});
+				this.message 	   = message;
+				this.options 	   = options;
+				this.callbackClose = callbackClose;
+				this.open();
+			}
+		);
 	}
 
-	open(callbackClose){
-		$('#boolean-popup').addClass('active');
-		this.callbackClose = callbackClose;
+	open(){
+		$('#popup').addClass('active');
 	}
 
-	close(response = false){
-		$('#boolean-popup').removeClass('active');
-		this.callbackClose(response);
+	close(response = false, message = ''){
+		$('#popup').removeClass('active');
+
+		if (typeof this.callbackClose === 'function')
+			this.callbackClose(response, message);
 	}
 }
 
-class BooleanPopupService{
+class PopupService{
 	constructor(){
 		'ngInject';
 
@@ -63,12 +66,12 @@ class BooleanPopupService{
 	}
 }
 
-const name = 'booleanPopup';
+const name = 'popup';
 
 export default angular.module(name, [
 	angularMeteor
 ]).component(name, {
 	template,
 	controllerAs : name,
-	controller : BooleanPopup
-}).service(name, BooleanPopupService);
+	controller : Popup
+}).service(name, PopupService);

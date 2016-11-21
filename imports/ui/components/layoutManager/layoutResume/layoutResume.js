@@ -56,8 +56,10 @@ class LayoutResume{
 	delete(layout) {
 		this.layoutFacade.deleteLayout(layout, 
 			(error, response)=>{
-				if(!error)
-					console.log('Layout ' + layout.metaData.name + ' deleted.');
+				if(!error){
+					let msg = 'Layout ' + layout.metaData.name + ' deleted.';
+					this.layoutFacade.throwMessage(msg);
+				}
 			}
 		);
 	}

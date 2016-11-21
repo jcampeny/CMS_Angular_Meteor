@@ -13,7 +13,7 @@ class LayoutEditor{
 
 		$reactive(this).attach($scope);
 
-		this.layoutId 		= $stateParams._id;
+		this.layoutId 		= $stateParams._id || this.layoutId;
 		this.root 			= $rootScope;
 		this.childrenLayout = childrenLayout;
 		this.css 			= cssManager;
@@ -30,8 +30,9 @@ class LayoutEditor{
 			(error, response) => {
 				if(!error){
 					this.layoutContainer = response.layout;
+					this.layoutFacade.throwMessage('Layout saved successfully');
 				} else {
-					console.log(error.reason);
+					this.layoutFacade.throwMessage(error.reason);
 				}
 			}
 		);
@@ -43,7 +44,9 @@ class LayoutEditor{
 				(error, response)=>{
 					if(!error){
 						this.state.go('home.layouts.display');
-						console.log('Layout ' + layout.metaData.name + ' deleted.');
+						this.layoutFacade.throwMessage('Layout ' + layout.metaData.name + ' deleted.');
+					} else {
+						this.layoutFacade.throwMessage(error.reason);
 					}
 				}
 			);			
@@ -57,8 +60,12 @@ class LayoutEditor{
 		{ //if ids layout exist... go search in DB
 			this.layoutFacade.getLayoutById(this.layoutId,
 				(error, response) => {
-					this.name = response.metaData.name;
-					this.layoutContainer = response;
+					if(!error){
+						this.name = response.metaData.name;
+						this.layoutContainer = response;						
+					} else {
+						this.layoutFacade.throwMessage(error.reason);					
+					}
 				}
 			);
 		} 
@@ -89,7 +96,8 @@ export default angular.module(name, [
 ]).component(name, {
 	template,
 	bindings : {
-		name : '='
+		name : '=',
+		layoutId : '@'
 	},
 	controllerAs : name,
 	controller : LayoutEditor

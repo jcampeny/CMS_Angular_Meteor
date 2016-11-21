@@ -13,14 +13,14 @@ import { name as CssManager } from './cssManager/cssManager';
 class LayoutFacade {};
 
 class LayoutFacadeService {
-	constructor($rootScope, $reactive, booleanPopup, cssManager){
+	constructor($rootScope, $reactive, popup, cssManager){
 		'ngInject';
 
 		//attach to $rootScope to digest after Meteor call
 		$reactive(this).attach($rootScope);
 
-		this.booleanPopup = booleanPopup;
-		this.css 	      = cssManager;
+		this.popup = popup;
+		this.css   = cssManager;
 	}
 
 	deleteLayout(layout, callback) {
@@ -30,7 +30,7 @@ class LayoutFacadeService {
 			no : 'Cancel'
 		};
 
-		this.booleanPopup.open(message, options, 
+		this.popup.open(message, options, 
 			(response) => {
 				if(response === true){
 					this.call('removeLayout', layout._id, 
@@ -98,6 +98,10 @@ class LayoutFacadeService {
 			(error, response) => {
 				//console.log(response);
 			});
+	}
+
+	throwMessage(message, options = {yes : 'Okay'}, callback){
+		this.popup.open(message, options, callback);
 	}
 }
 

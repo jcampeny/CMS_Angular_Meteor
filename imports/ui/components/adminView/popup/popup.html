@@ -1,0 +1,16 @@
+<section id="popup">
+	<article>
+		<div class="message">{{popup.message}}</div>
+		<span class="lnr lnr-cross" ng-click="popup.close()"></span>
+		<div class="response" 
+		     ng-if="popup.options && (popup.options.yes || popup.options.no)">
+			<a class="accept" 
+			   ng-if="popup.options.yes" 
+			   ng-click="popup.close(true, popup.options.yes)">{{popup.options.yes}}</a>
+			<a class="reject" 
+			   ng-if="popup.options.no" 
+			   ng-click="popup.close(false, popup.options.no)">{{popup.options.no}}</a>
+		</div>
+	</article>
+	<div class="shape" ng-click="popup.close()"></div>
+</section>
