@@ -22,7 +22,8 @@ function config ($stateProvider){
 			'<header-options></header-options>'+
 			'<navigation></navigation>'+
 			'<div ui-view="" class="views-container"></div>'+
-			'<css-manager></css-manager>',
+			'<css-manager></css-manager>'+
+			'<boolean-popup></boolean-popup>',
 		abstract: true,
 		resolve : {
 			currentUser($q){

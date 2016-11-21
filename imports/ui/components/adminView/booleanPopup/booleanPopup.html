@@ -1,0 +1,11 @@
+<section id="boolean-popup">
+	<article>
+		<div class="message">{{booleanPopup.message}}</div>
+		<span class="lnr lnr-cross" ng-click="booleanPopup.close()"></span>
+		<div class="response">
+			<a class="accept" ng-click="booleanPopup.close(true)">{{booleanPopup.options.yes}}</a>
+			<a class="reject" ng-click="booleanPopup.close()">{{booleanPopup.options.no}}</a>
+		</div>
+	</article>
+	<div class="shape" ng-click="booleanPopup.close()"></div>
+</section>

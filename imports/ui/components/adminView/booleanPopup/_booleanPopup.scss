@@ -1,0 +1,65 @@
+boolean-popup{
+	section{
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		background-color: rgba(50, 50, 50, 0.7);
+		opacity: 0;
+		pointer-events: none;
+		z-index: 5;
+		@include transition(all $transition);
+		article{
+			position: absolute;
+			top: 55%; left: 50%;
+			width: 400px;
+			min-height: 20%;
+			max-height: 80%;
+			background-color: $light-gray;
+			padding: $margin;
+			z-index: 7;
+			text-align: center;
+			@include transform(translate(-50%, -50%));
+			@include box-shadow($shadow-blur-green);
+			@include transition(all $transition);
+			div.message{
+				font-size: 14px;
+				margin: $margin auto; 
+				width: 70%;
+			}
+			span.lnr-cross{
+				position: absolute;
+				top: $margin;
+				right: $margin;
+				@include icon-btn($dark-emerald, white);
+			}
+			div.response{
+				position: absolute;
+				bottom: $margin;
+				left: 50%;
+				@include transform(translateX(-50%));
+				a{
+					display: inline-block;
+					margin: 0px 5px;
+					@include btn-mix(white);
+				}				
+			}
+
+		}
+		div.shape{
+			position: absolute;
+			top:0; left:0; 
+			width: 100%; height: 100%;
+			z-index: 6;
+			cursor: auto;
+		}
+		&.active{
+			pointer-events: all;
+			opacity: 1;
+			article{
+				top: 50%;
+			}
+		}
+	}
+}

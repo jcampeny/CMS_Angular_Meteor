@@ -8,6 +8,7 @@ import { name as Auth } from './auth/auth';
 import { name as HeaderOptions } from './header/headerOptions/headerOptions';
 import { name as Navigation } from './header/navigation/navigation';
 import { name as Resume } from './resume/resume';
+import { name as BooleanPopup } from './booleanPopup/booleanPopup';
 
 class AdminViewFacade {
 	constructor($scope, $reactive, $rootScope, $location){
@@ -43,7 +44,8 @@ export default angular.module(name, [
 	Auth,
 	HeaderOptions, 
 	Navigation,
-	Resume
+	Resume,
+	BooleanPopup
 ]).component(name, {
 	template : '<div ui-view="" class="admin-view-facade"></div>',
 	controllerAs : name,
