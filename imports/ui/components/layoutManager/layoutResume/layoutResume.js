@@ -8,12 +8,12 @@ import template from './layoutResume.html';
 import { Layouts } from '../../../../api/layouts';
 
 class LayoutResume{
-	constructor($scope, $reactive, booleanPopup){
+	constructor($scope, $reactive, layoutFacade){
 		'ngInject';
 
 		$reactive(this).attach($scope);
 		
-		this.booleanPopup = booleanPopup;
+		this.layoutFacade = layoutFacade;
 
 		this.perPage = 4;
 		this.page = 1;
@@ -54,18 +54,12 @@ class LayoutResume{
 	}
 
 	delete(layout) {
-		const message = 'Do you want to delete ' + layout.metaData.name + ' layout?';
-		const options = {
-			yes : 'Delete',
-			no : 'Cancel'
-		};
-
-		this.booleanPopup.open(message, options, 
-			(response) => {
-				if(response === true){
-					console.log(layout.metaData.name + ' deleted');
-				}
-			});
+		this.layoutFacade.deleteLayout(layout, 
+			(error, response)=>{
+				if(!error)
+					console.log('Layout ' + layout.metaData.name + ' deleted.');
+			}
+		);
 	}
 }
 

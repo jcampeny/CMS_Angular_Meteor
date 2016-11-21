@@ -45,6 +45,8 @@ export function updateLayout(layout){
 	},{
 		$set : layout
 	});
+
+	return { layout };
 }
 
 export function getLayout(id){
@@ -56,8 +58,22 @@ export function getLayout(id){
 	});
 }
 
+export function removeLayout(layoutId){
+	if (!this.userId) {
+		throw new Meteor.Error(400, 'You have to be logged in!');
+	}
+
+	const layout = Layouts.findOne(layoutId);
+
+	if(layout.metaData.owner !== this.userId){
+		throw new Meteor.Error(400, 'No permissions to delete!');
+	}
+
+	return Layouts.remove({"_id" : layout._id});
+}
 Meteor.methods({
 	insertLayout,
 	updateLayout,
-	getLayout
+	getLayout,
+	removeLayout
 });

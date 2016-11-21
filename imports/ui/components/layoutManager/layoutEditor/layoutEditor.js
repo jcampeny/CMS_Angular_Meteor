@@ -6,10 +6,8 @@ import {} from 'angular-ui-sortable';
 
 import template from './layoutEditor.html';
 
-import { LayoutEditorService } from './layoutEditorService';
-
 class LayoutEditor{
-	constructor($scope, $reactive, $rootScope, childrenLayout, cssManager, layoutEditor, $stateParams)
+	constructor($scope, $reactive, $rootScope, childrenLayout, cssManager, $stateParams, layoutFacade, $state)
 	{
 		'ngInject';
 
@@ -19,60 +17,50 @@ class LayoutEditor{
 		this.root 			= $rootScope;
 		this.childrenLayout = childrenLayout;
 		this.css 			= cssManager;
-		this.layoutEditor 	= layoutEditor;
+		this.layoutFacade 	= layoutFacade;
+		this.state 			= $state;
 
-		this.__constructLayout();
-		this.handleEvents();
+		this.createLayout();
 	}
 
-	save(callback){
+	save(layout = this.layoutContainer){
 		this.layoutContainer.metaData.name = this.name;
 
-		if(!this.layoutContainer._id){
-			Meteor.call('insertLayout', this.layoutContainer,
-				(error, response) => {
+		this.layoutFacade.save(layout, 
+			(error, response) => {
+				if(!error){
+					this.layoutContainer = response.layout;
+				} else {
+					console.log(error.reason);
+				}
+			}
+		);
+	}
+
+	delete(layout = this.layoutContainer) {
+		if(this.layoutContainer._id){
+			this.layoutFacade.deleteLayout(layout, 
+				(error, response)=>{
 					if(!error){
-						if(typeof callback == 'function'){
-							this.layoutContainer = response.layout;
-							callback(error, response);
-						}
-					} else {
-						console.log(error.reason);
+						this.state.go('home.layouts.display');
+						console.log('Layout ' + layout.metaData.name + ' deleted.');
 					}
-				});
+				}
+			);			
 		} else {
-			this.update(callback);
+			this.state.go('home.layouts.display');
 		}
 	}
 
-	update(callback){
-		Meteor.call('updateLayout', this.layoutContainer,
-			(error, response) => {
-				if(typeof callback == 'function')
-					callback(error, response);
-				
-			});
-	}
-
-	removeChildren(index){
-		this.layoutContainer.html.splice(index, 1);
-	}
-
-	addChildren(type){
-		this.childrenLayout.createChildren(type, (newChildren) => {
-			this.layoutContainer.html.push(newChildren);
-			this.layoutEditor.parseLayout(this.layoutContainer);
-		});
-	}
-	
-	__constructLayout(){
+	createLayout(){
 		if(this.layoutId) 
 		{ //if ids layout exist... go search in DB
-			Meteor.call('getLayout', this.layoutId, 
+			this.call('getLayout', this.layoutId, 
 				(error, response)=>{
 					this.name = response.metaData.name;
 					this.layoutContainer = response;
-				});
+				}
+			);
 		} 
 		else 
 		{ //create a standard layout to be created
@@ -88,17 +76,18 @@ class LayoutEditor{
 				}
 			};				
 		}
-	}		
+	}	
 
-	handleEvents(){
-		this.layoutEditor.onSaveLayoutFromOutside(
-			(name, callback) => {
-				if(name && name == this.name){
-					this.save(callback);
-				}
-			}
-		);
+	removeChildren(index){
+		this.layoutContainer.html.splice(index, 1);
 	}
+
+	addChildren(type){
+		this.childrenLayout.createChildren(type, (newChildren) => {
+			this.layoutContainer.html.push(newChildren);
+			this.layoutFacade.parseLayout(this.layoutContainer);
+		});
+	}	
 }
 
 
@@ -114,6 +103,6 @@ export default angular.module(name, [
 	},
 	controllerAs : name,
 	controller : LayoutEditor
-}).service(name, LayoutEditorService);
+});
 
 

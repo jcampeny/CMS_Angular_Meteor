@@ -6,7 +6,9 @@
 		<span ng-click="layoutEditor.addChildren('mediaContainer')" class="lnr lnr-picture"></span>
 	</div>
 	<div class="options">
+		<span class="lnr lnr-cloud-upload" ng-click="layoutEditor.save();"></span>
 		<span class="lnr lnr-magic-wand" ng-click="layoutEditor.css.openCssEditor($event, layoutEditor.layoutContainer);"></span>
+		<span class="lnr lnr-cross" ng-click="layoutEditor.delete();"></span>
 	</div>
 	<div class="children-layout-container" 
 		ng-repeat="children in layoutEditor.layoutContainer.html track by $index"
