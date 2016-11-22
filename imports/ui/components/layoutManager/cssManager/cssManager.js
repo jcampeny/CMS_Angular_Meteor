@@ -15,23 +15,55 @@ class CssManager{
 		this.root = $rootScope;
 		this.handleEvents();
 
-		this.layoutToEdit = {};
+		this.classId = {};
+
+		this.cssProperties = {};
+
+		this.newCssProperty = {
+			key : '',
+			value : ''
+		};
 	}
 
-	openCssEditor()
-	{
+	saveClass(classObj = this.cssProperties[this.classId]){
+		if(classObj){
+			//remove $$hashKey
+			angular.forEach(classObj, (classProperty) => {
+				if(classProperty.$$hashKey){
+					delete classProperty.$$hashKey;
+				}
+			});
+		}
+		console.log(classObj);
+	}
+
+	addProperty(property = this.newCssProperty){
+		//parse property 
+		let parsedProperty = {};
+		parsedProperty[property.key] = property.value;
+
+		//add property to cssProperties
+		if(!this.cssProperties[this.classId])
+			this.cssProperties[this.classId] = [];
+
+		this.cssProperties[this.classId].push(parsedProperty);
+
+		//reset values
+		this.newCssProperty = {key : '', value : ''};
+	}
+
+	openCssEditor(){
 		$('#cssManager').addClass('active');
 	}
 
-	closeCssEditor()
-	{
+	closeCssEditor(){
 		$('#cssManager').removeClass('active');
 	}
-	handleEvents()
-	{
+
+	handleEvents(){
 		this.root.$on('openCssEditor', (event, args) => {
 			if(args.layout.class){
-				this.layoutToEdit = args.layout;
+				this.classId = args.layout.class;
 				this.openCssEditor();
 			}
 		});
@@ -46,4 +78,14 @@ export default angular.module(name, [
 	template,
 	controllerAs : name,
 	controller : CssManager
+}).filter('getCssValue', () => {
+	return (cssProperty) => {
+		return Object.values(cssProperty)[0];
+	}
+}).filter('getCssKey', () => {
+	return (cssProperty) => {
+		return Object.keys(cssProperty)[0];
+	}
 }).service(name, CssManagerService);
+
+
