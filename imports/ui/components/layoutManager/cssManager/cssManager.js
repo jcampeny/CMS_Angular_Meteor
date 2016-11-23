@@ -40,10 +40,9 @@ class CssManager{
 		parentLayout = this.parentLayout, 
 		properties   = (this.styleSaved) ? angular.copy(this.styleSaved.properties) : null, 
 		className    = this.classId
-	){console.log(this.styleSaved);
+	){
 		if ( this.styleSaved && this.styleSaved._id )
 		{ //if class exist go update
-			console.log('upda');
 			const msg = 'Do you want to overwrite this class?';
 			const options = {yes : 'Yes', no : 'No'};
 
@@ -55,7 +54,6 @@ class CssManager{
 		} 
 		else 
 		{ //save in DB if this class was not found
-			console.log('saving');
 			this.call('insertStyle', className, properties, parentLayout._id, 
 				(err, res) => {
 					if (!err){
