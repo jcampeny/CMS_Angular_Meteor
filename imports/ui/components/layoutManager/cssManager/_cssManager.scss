@@ -44,6 +44,18 @@ css-manager{
 			}
 			div.property{
 				margin-left: $margin;
+				position: relative;
+				span.lnr{
+					@include icon-btn(white, $dark-emerald);
+					position: absolute;
+					right: calc(100% + 5px); top: 50%;
+					font-size: 14px;
+					opacity: 0;
+					@include transform(translateY(-50%));
+				}
+				&:hover{
+					span.lnr{opacity: 1;}
+				}
 			}
 		}
 		div.shape{
