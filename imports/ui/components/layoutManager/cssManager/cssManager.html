@@ -1,8 +1,27 @@
 <section id="cssManager">
-	<article>
+	<article class="container">
+		<!-- Insert new -->
+		<div class="input-properties">
+			<md-input-container flex>
+				<label for="propertyName">Property</label>
+		  		<input id="propertyName" type="text" ng-model="cssManager.newCssProperty.key"/>
+			</md-input-container>
+			<md-input-container flex>
+				<label for="propertyValue">Value</label>
+		  		<input id="propertyValue" type="text" ng-model="cssManager.newCssProperty.value"/>
+			</md-input-container>
+			<br>
+			<button ng-click="cssManager.addProperty()">Add</button>
+		</div>
+		<!-- Resume -->
 		<span ng-click="cssManager.closeCssEditor()" class="lnr lnr-cross"></span>
-		content : <br>
-		{{cssManager.layoutToEdit.class}}
+		<span ng-click="cssManager.saveClass()" class="lnr lnr-cloud-upload"></span>
+		.{{cssManager.classId}} {
+		<div class="property" ng-repeat="property in cssManager.styleSaved.properties">
+			<span ng-click="cssManager.removeProperty(property)" class="lnr lnr-cross"></span>
+			{{property | getCssKey}} : {{property | getCssValue}}
+		</div>
+		}
 	</article>
 	<div class="shape" ng-click="cssManager.closeCssEditor()"></div>
 </section>

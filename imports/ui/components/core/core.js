@@ -12,7 +12,15 @@ import { name as MediaFacade } 		from '../mediaManager/mediaFacade';
 import { name as StateFacade } 		from '../stateManager/stateFacade';
 import { name as AdminViewFacade }  from '../adminView/adminViewFacade';
 
-class Cms {};
+class Cms {
+	constructor ($rootScope, popup) {
+		'ngInject';
+
+		$rootScope.throwMessage = (message, options = {yes : 'Okay'}, callback) => {
+			popup.open(message, options, callback);
+		};
+	}
+};
 
 const name = 'cms';
 

@@ -22,7 +22,7 @@
 				ng-click="children.flex = (children.flex < 100) ? (children.flex + 10) : 100">+</span>
 		</div>
 		<div class="options">
-			<span ng-click="layoutEditor.css.openCssEditor($event, children);" class="lnr lnr-magic-wand"></span>
+			<span ng-click="layoutEditor.css.openCssEditor($event, layoutEditor.layoutContainer, children);" class="lnr lnr-magic-wand"></span>
 			<span ng-click="layoutEditor.removeChildren($index)" class="lnr lnr-cross"></span>
 		</div>
 		<children-layout meta-data="children"></children-layout>

@@ -10,10 +10,10 @@ css-manager{
 		pointer-events: none;
 		z-index: 5;
 		@include transition(all $transition);
-		article{
+		article.container{
 			position: absolute;
 			top: 55%; left: 50%;
-			width: 500px;
+			width: 550px;
 			min-height: 20%;
 			max-height: 80%;
 			overflow-y: scroll; 
@@ -23,11 +23,39 @@ css-manager{
 			@include transform(translate(-50%, -50%));
 			@include box-shadow($shadow-blur-green);
 			@include transition(all $transition);
-			span.lnr-cross{
+			span.lnr{
 				position: absolute;
 				top: $margin;
 				right: $margin;
 				@include icon-btn($dark-emerald, white);
+				&.lnr-cloud-upload{
+					right: $margin*2 + 10px;
+				}
+			}
+			div.input-properties{
+				@extend md-input-container;
+				label{margin-bottom: 0px !important;}
+				div.md-errors-spacer{display: none;}
+				button{
+					@include btn-mix(white);
+					font-size: 12px;
+					margin-bottom: $margin;
+				}
+			}
+			div.property{
+				margin-left: $margin;
+				position: relative;
+				span.lnr{
+					@include icon-btn(white, $dark-emerald);
+					position: absolute;
+					right: calc(100% + 5px); top: 50%;
+					font-size: 14px;
+					opacity: 0;
+					@include transform(translateY(-50%));
+				}
+				&:hover{
+					span.lnr{opacity: 1;}
+				}
 			}
 		}
 		div.shape{
