@@ -30,6 +30,12 @@ class PageResume{
 			{ _id : '2H48G934VB3434', name : 'Page 4'}
 		];
 		this.totalPages = 10;
+		
+		this.filterBy = '';
+	}
+
+	setFilter(filter = ''){
+		this.filterBy = (this.filterBy == filter) ? '' : filter;
 	}
 }
 

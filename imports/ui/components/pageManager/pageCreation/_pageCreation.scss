@@ -1,0 +1,46 @@
+page-creation{
+	// vars 
+	div.explanation{
+		font-size: 12px;
+		margin-bottom: 10px;
+	}
+	// end vars
+	section.general-info{
+		article.title{
+			color: $dark-emerald;
+			@extend md-input-container;
+			md-input-container{margin-bottom: 0px;}
+		}
+		article.save{
+			position: absolute;
+			top: $margin; right: $margin;
+			a{
+				@include btn-mix(white);
+				font-size: 14px;
+				padding: 0.4em 0.9em;
+			}
+		}
+		article.type{
+			margin-bottom: $margin;
+			span.tag{
+				@extend .cms-tag;
+				display: inline-block;
+				font-size: 14px;
+				&:first-of-type{ margin-left: 0px; }
+			}
+		}
+		article.add-elements{
+			a{
+				@include btn-mix(white);
+				display: inline-block;	
+				span{
+					display: block;
+					text-align: center;
+					min-width: 70px; 
+					&:first-child{font-size: 20px;}
+					&:last-child{margin-top: 0.5em;}
+				}			
+			}
+		}
+	}
+}

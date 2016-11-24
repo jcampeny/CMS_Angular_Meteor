@@ -1,0 +1,21 @@
+<section class="general-info">
+	<article class="title">
+		<md-input-container flex>
+			<label for="pageName">Identification name</label>
+	  		<input id="pageName" type="text" ng-model="pageCreation.pageName"/>
+		</md-input-container>
+	</article>
+	<article class="type">
+		<div class="explanation">Choose the use you will give to your page:</div>
+		<span class="tag" 
+			ng-class="{'active' : pageCreation.pageType == 'page'}"
+			ng-click="pageCreation.pageType = 'page'">Page</span>
+		<span class="tag" 
+			ng-class="{'active' : pageCreation.pageType == 'post'}"
+			ng-click="pageCreation.pageType = 'post'">Post</span>
+	</article>
+	<article class="page-state">
+		<page-editor name="pageCreation.pageName"></page-editor>
+	</article>
+</section>
+

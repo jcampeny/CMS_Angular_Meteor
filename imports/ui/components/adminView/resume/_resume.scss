@@ -14,9 +14,4 @@ resume{
 			&:nth-child(odd){padding-right: $margin / 2}
 		}
 	}
-	media-resume{
-		width: 100%;
-		padding-right: 0px !important;
-		padding-left: 0px !important;
-	}
 }

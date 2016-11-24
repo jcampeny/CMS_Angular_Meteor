@@ -39,10 +39,23 @@ function config ($stateProvider){
 			url : '',
 			template : '<resume></resume>'
 		})
-		.state('home.page', {
-			url : 'create-page',
-			template : '<page-creation></page-creation>'
+		.state('home.pages', {
+			url : 'pages',
+			abstract: true,
+			template : '<div ui-view=""></div>'
 		})
+			.state('home.pages.create', {
+				url : '/create',
+				template : '<page-creation></page-creation>'
+			})
+			.state('home.pages.edit', {
+				url : '/:_id',
+				template : '<page-creation></page-creation>'
+			})
+			.state('home.pages.display', {
+				url : '',
+				template : '<page-resume></page-resume>'
+			})
 		.state('home.section', {
 			url : 'edit-sections',
 			template : '<sections-edit></sections-edit>'

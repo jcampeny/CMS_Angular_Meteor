@@ -10,6 +10,14 @@
 		</ul>
 	</article>
 	<nav>
+		<div class="filter-by">
+			<span class="tag" 
+				ng-class="{'active' : pageResume.filterBy == 'page'}"
+				ng-click="pageResume.setFilter('page')">Pages</span>
+			<span class="tag" 
+				ng-class="{'active' : pageResume.filterBy == 'post'}"
+				ng-click="pageResume.setFilter('post')">Posts</span>
+		</div>
 		<div class="pagination">
 			<span class="lnr lnr-chevron-left"></span>
 			<span class="actual-page">{{pageResume.page}} /</span>
