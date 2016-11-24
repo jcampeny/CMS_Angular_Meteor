@@ -10,17 +10,28 @@ import { name as LayoutEditor } from './layoutEditor/layoutEditor';
 import { name as ChildrenLayout } from './childrenLayout/childrenLayout';
 import { name as CssManager } from './cssManager/cssManager';
 
+import { Layouts } from '../../../api/layouts';
+
 class LayoutFacade {};
 
 class LayoutFacadeService {
-	constructor($rootScope, $reactive, popup, cssManager){
+	constructor($rootScope, $reactive, popup, popupItemSelector, cssManager){
 		'ngInject';
 
 		//attach to $rootScope to digest after Meteor call
 		$reactive(this).attach($rootScope);
 
 		this.popup = popup;
+		this.popupItemSelector = popupItemSelector;
 		this.css   = cssManager;
+
+		this.subscribe('layouts');
+
+		this.helpers({
+			layouts(){
+				return Layouts.find({});
+			}
+		})
 	}
 
 	deleteLayout(layout, callback) {
@@ -98,6 +109,17 @@ class LayoutFacadeService {
 			(error, response) => {
 				//console.log(response);
 			});
+	}
+
+	displayLayouts(callback){
+		const msg = 'Select the layouts you want';
+
+		this.popupItemSelector.open(msg, this.layouts,
+			(itemsSelected) => {
+				if(typeof callback === 'function')
+					callback(itemsSelected);
+			}
+		);
 	}
 
 	throwMessage(message, options = {yes : 'Okay'}, callback){

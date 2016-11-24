@@ -1,0 +1,27 @@
+<section class="parent-page-container" layout="row" layout-wrap ui-sortable ng-model="pageEditor.pageContainer.html">
+	<div class="parent-name">{{pageEditor.name || 'Layout Parent'}}</div>
+	<div class="new-elements">
+		<span ng-click="pageEditor.addLayout()" class="lnr lnr-layers"></span>
+	</div>
+	<div class="options">
+		<span class="lnr lnr-cloud-upload" ng-click="pageEditor.save();"></span>
+		<span class="lnr lnr-magic-wand" ng-click="pageEditor.css.openCssEditor($event, pageEditor.pageContainer);"></span>
+		<span class="lnr lnr-cross" ng-click="pageEditor.delete();"></span>
+	</div>
+	<div class="children-page-container" 
+		ng-repeat="children in pageEditor.pageContainer.html track by $index"
+		flex="{{children.flex}}">
+		<div class="children-type">{{children.type}}</div>
+		<div class="width-controller">
+			<span class="lnr down" 
+				ng-click="children.flex = (children.flex < 30) ? 20 : (children.flex - 10)">–</span>
+			<span class="ratio">{{children.flex}} / 100</span>
+			<span class="lnr up" 
+				ng-click="children.flex = (children.flex < 100) ? (children.flex + 10) : 100">+</span>
+		</div>
+		<div class="options">
+			<span ng-click="pageEditor.css.openCssEditor($event, pageEditor.pageContainer, children);" class="lnr lnr-magic-wand"></span>
+			<span ng-click="pageEditor.removeChildren($index)" class="lnr lnr-cross"></span>
+		</div>
+	</div>
+</section>

@@ -6,6 +6,7 @@
 @import '../adminView/header/navigation/navigation';
 @import '../adminView/resume/resume';
 @import '../adminView/popup/popup';
+@import '../adminView/popupItemSelector/popupItemSelector';
 
 /**********************
 ** compilator Styles **
@@ -30,6 +31,7 @@
 **********************/
 @import '../pageManager/pageResume/pageResume';
 @import '../pageManager/pageCreation/pageCreation';
+@import '../pageManager/pageEditor/pageEditor';
 
 /**********************
 **** state Styles *****

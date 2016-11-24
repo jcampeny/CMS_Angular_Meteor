@@ -23,7 +23,8 @@ function config ($stateProvider){
 			'<navigation></navigation>'+
 			'<div ui-view="" class="views-container"></div>'+
 			'<css-manager></css-manager>'+
-			'<popup></popup>',
+			'<popup></popup>' +
+			'<popup-item-selector></popup-item-selector>',
 		abstract: true,
 		resolve : {
 			currentUser($q){

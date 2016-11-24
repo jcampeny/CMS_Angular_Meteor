@@ -1,0 +1,73 @@
+page-editor{
+	$mini-padding: 5px;
+	section.parent-page-container{
+		width: 100%;
+		background-color: $black;
+		min-height: 150px;
+		border: 1px solid $light-emerald;
+		position: relative;
+		margin-top: $margin;
+		padding-top: $margin + 10;
+		padding-right: $mini-padding;
+		@include clear-both();
+		@include box-shadow($shadow-container);
+		div.parent-name{
+			display: inline-block;
+			position: absolute;
+			background-color: $light-emerald;
+			top: 0px; left: 0px;
+			padding: 0.4em 0.6em;
+			font-size: 12px;
+		}
+		div.new-elements{
+			position: absolute;
+			top: $mini-padding; left: 50%;
+			@include transform(translateX(-50%));
+			span.lnr{
+				@include icon-btn($light-emerald, $dark-emerald);
+				margin: $mini-padding / 2;
+			}
+		}
+		div.options{
+			position: absolute;
+			top: 0px; right: 0px;
+			padding: 0.3em 0.6em;
+			span.lnr{
+				@include icon-btn($light-emerald, $dark-emerald);
+				padding-left: $mini-padding;
+			}
+		}
+		div.width-controller{
+			display: inline-block;
+			font-size: 10px;
+			position: absolute;
+			top: 0px; left: 110px;
+			span.ratio{
+				position: relative;
+				top: -2px;
+			}
+			span.lnr{
+				@include icon-btn($light-emerald, $dark-emerald);
+				margin: 5px;
+				&.down{
+					position: relative;
+					top: -2px;
+				}
+			}
+		}
+		div.children-page-container{
+			position: relative;
+			background-color: $gray;
+			min-height: 80px;
+			padding: $mini-padding;
+			padding-top: 30px;
+			border-left: $mini-padding solid $black;
+			border-bottom: $mini-padding solid $black;
+			cursor: move;
+			div.children-type{@extend div.parent-name;}
+			div.options{
+				@extend div.options;
+			}
+		}
+	}
+}
