@@ -1,11 +1,11 @@
 <section id="popup-item-selector">
 	<article>
 		<div class="message">{{popupItemSelector.message}}</div>
-		<span class="lnr lnr-cross" ng-click="popupItemSelector.close([])"></span>
+		<span class="lnr lnr-cross" ng-click="popupItemSelector.close([], true)"></span>
 		<div class="items-container">
 			<div class="item" 
-			ng-click="popupItemSelector.selectItem(item._id)"
-			ng-class="{'selected' : popupItemSelector.itemsSelected.includes(item._id)}"
+			ng-click="popupItemSelector.selectItem(item)"
+			ng-class="{'selected' : popupItemSelector.itemsSelected.includes(item)}"
 			ng-repeat="item in popupItemSelector.items | startFrom:popupItemSelector.page*popupItemSelector.perPage | limitTo:popupItemSelector.perPage">
 				{{item.metaData.name}}
 			</div>
@@ -20,9 +20,9 @@
 			<a class="accept" 
 			   ng-click="popupItemSelector.close()">Done</a>
 			<a class="reject" 
-			   ng-click="popupItemSelector.close([])">Cancel</a>
+			   ng-click="popupItemSelector.close([], true)">Cancel</a>
 		</div>
 	</article>
 
-	<div class="shape" ng-click="popupItemSelector.close([])"></div>
+	<div class="shape" ng-click="popupItemSelector.close([], true)"></div>
 </section>

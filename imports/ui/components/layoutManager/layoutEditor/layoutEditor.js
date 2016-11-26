@@ -19,8 +19,13 @@ class LayoutEditor{
 		this.css 			= cssManager;
 		this.layoutFacade 	= layoutFacade;
 		this.state 			= $state;
+		this.scope 			= $scope;
 
 		this.createLayout();
+		this.scope.$watch( 
+			() => this.layoutId, 
+			()=> {this.createLayout()}
+		);
 	}
 
 	save(layout = this.layoutContainer){
@@ -62,7 +67,7 @@ class LayoutEditor{
 				(error, response) => {
 					if(!error){
 						this.name = response.metaData.name;
-						this.layoutContainer = response;						
+						this.layoutContainer = response;	
 					} else {
 						this.layoutFacade.throwMessage(error.reason);					
 					}
@@ -97,7 +102,8 @@ export default angular.module(name, [
 	template,
 	bindings : {
 		name : '=',
-		layoutId : '@'
+		layoutId : '<',
+		options : '<'
 	},
 	controllerAs : name,
 	controller : LayoutEditor

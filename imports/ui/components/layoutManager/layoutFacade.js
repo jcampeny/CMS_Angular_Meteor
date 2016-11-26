@@ -15,15 +15,16 @@ import { Layouts } from '../../../api/layouts';
 class LayoutFacade {};
 
 class LayoutFacadeService {
-	constructor($rootScope, $reactive, popup, popupItemSelector, cssManager){
+	constructor($rootScope, $reactive, $rootScope, popup, popupItemSelector, cssManager){
 		'ngInject';
 
 		//attach to $rootScope to digest after Meteor call
 		$reactive(this).attach($rootScope);
 
-		this.popup = popup;
 		this.popupItemSelector = popupItemSelector;
-		this.css   = cssManager;
+		this.popup 			   = popup;
+		this.css  			   = cssManager;
+		this.root 	 		   = $rootScope;
 
 		this.subscribe('layouts');
 
@@ -61,6 +62,9 @@ class LayoutFacadeService {
 				(error, response) => {
 					if(typeof callback == 'function')
 						callback(error, response);
+
+					//Throw event on LayoutSave
+					this.root.$emit('layoutSaved', {layout : response.layout});
 				}
 			);
 		}  else {
@@ -112,12 +116,12 @@ class LayoutFacadeService {
 	}
 
 	displayLayouts(callback){
-		const msg = 'Select the layouts you want';
+		const msg = 'Select the layouts you want to add';
 
 		this.popupItemSelector.open(msg, this.layouts,
-			(itemsSelected) => {
+			(itemsSelected, cancelled) => {
 				if(typeof callback === 'function')
-					callback(itemsSelected);
+					callback(itemsSelected, cancelled);
 			}
 		);
 	}

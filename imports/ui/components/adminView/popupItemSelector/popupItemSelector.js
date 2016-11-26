@@ -8,8 +8,8 @@ import template from './popupItemSelector.html';
 /* 
 	How to use it:
 
-	popupItemSelector.open(message, options, 
-		(response) => {
+	popupItemSelector.open(message, items, 
+		(items, cancelled) => {
 			//...
 		});
 */
@@ -32,6 +32,10 @@ class PopupItemSelector{
 
 		this.service.onPopupCall(
 			(message, items, callbackClose) => {
+				//resets value when other items are displayed
+				//if (!angular.equals(this.items, items)) 
+					this.itemsSelected = [];
+
 				this.message 	   = message;
 				this.items 	       = items;
 				this.callbackClose = callbackClose;
@@ -43,14 +47,13 @@ class PopupItemSelector{
 
 	open(){
 		$('#popup-item-selector').addClass('active');
-		this.itemsSelected = [];
 	}
 
-	close(itemsSelected = this.itemsSelected){
+	close(itemsSelected = this.itemsSelected, cancelled = false){
 		$('#popup-item-selector').removeClass('active');
 
 		if (typeof this.callbackClose === 'function')
-			this.callbackClose(itemsSelected) ;
+			this.callbackClose(itemsSelected.map(layout => layout), cancelled);
 	}
 
 	changePage(direction){ 
@@ -61,11 +64,11 @@ class PopupItemSelector{
 		}
 	}
 
-	selectItem(id){
-		let index = this.itemsSelected.indexOf(id);
+	selectItem(layout){
+		let index = this.itemsSelected.indexOf(layout);
 
 		if(index < 0){ //not found
-			this.itemsSelected.push(id);
+			this.itemsSelected.push(layout);
 		} else {
 			this.itemsSelected.splice(index, 1);
 		}

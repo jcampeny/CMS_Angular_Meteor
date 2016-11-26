@@ -8,7 +8,6 @@ page-editor{
 		position: relative;
 		margin-top: $margin;
 		padding-top: $margin + 10;
-		padding-right: $mini-padding;
 		@include clear-both();
 		@include box-shadow($shadow-container);
 		div.parent-name{
@@ -26,6 +25,16 @@ page-editor{
 			span.lnr{
 				@include icon-btn($light-emerald, $dark-emerald);
 				margin: $mini-padding / 2;
+				&.add-layout{
+					margin-left: $margin / 2;
+					span{
+						font-size: 14px;
+						position: relative;
+						top: -11px;
+						left: -9px;
+					}
+					
+				}
 			}
 		}
 		div.options{
@@ -35,39 +44,41 @@ page-editor{
 			span.lnr{
 				@include icon-btn($light-emerald, $dark-emerald);
 				padding-left: $mini-padding;
-			}
-		}
-		div.width-controller{
-			display: inline-block;
-			font-size: 10px;
-			position: absolute;
-			top: 0px; left: 110px;
-			span.ratio{
-				position: relative;
-				top: -2px;
-			}
-			span.lnr{
-				@include icon-btn($light-emerald, $dark-emerald);
-				margin: 5px;
-				&.down{
-					position: relative;
-					top: -2px;
+				&.lnr-frame-contract,
+				&.lnr-frame-expand,
+				&.lnr-lock{
+					@include transition(all 0s);
 				}
 			}
 		}
 		div.children-page-container{
 			position: relative;
-			background-color: $gray;
-			min-height: 80px;
+			border: 1px solid $light-emerald;
+			margin: $mini-padding;
 			padding: $mini-padding;
-			padding-top: 30px;
-			border-left: $mini-padding solid $black;
-			border-bottom: $mini-padding solid $black;
-			cursor: move;
-			div.children-type{@extend div.parent-name;}
-			div.options{
-				@extend div.options;
+			padding-top: $mini-padding * 2;
+			background-color: $gray;
+			min-height: 80px !important;
+			@include box-shadow(inset $shadow-blur-green);
+			div.layout-name{@extend div.parent-name;}
+			div.layout-options{@extend div.options;}
+			div.layout-name{display: none;}
+			&.contract-layout{
+				cursor: move;
+				padding-top: 30px;
+				margin-top: 0px;
+				div.layout-name{display: block;}
+				layout-editor{ display:none; }
 			}
+		}
+		&.contract-layouts{
+			padding-top: 30px;
+			div.children-page-container{
+				cursor: move;
+				margin-top: 0px;
+			}
+			div.layout-name{display: block !important;}
+			layout-editor{ display:none !important; }
 		}
 	}
 }

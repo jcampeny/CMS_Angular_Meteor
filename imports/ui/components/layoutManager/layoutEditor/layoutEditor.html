@@ -1,14 +1,21 @@
 <section class="parent-layout-container" layout="row" layout-wrap ui-sortable ng-model="layoutEditor.layoutContainer.html">
-	<div class="parent-name">{{layoutEditor.name || 'Layout Parent'}}</div>
+	<div class="parent-name">
+		<span ng-if="!layoutEditor.options.changeName || !layoutEditor.editingName">{{layoutEditor.name || 'Layout Parent'}}</span>
+		<input type="text" ng-model="layoutEditor.name"  ng-if="layoutEditor.editingName">
+		<span class="lnr" 
+			ng-if="layoutEditor.options.changeName" 
+			ng-click="layoutEditor.editingName = !layoutEditor.editingName"
+			ng-class="(layoutEditor.editingName) ? 'lnr-checkmark-circle' : 'lnr-pencil'"></span>
+	</div>
 	<div class="new-elements">
 		<span ng-click="layoutEditor.addChildren('plainText')" class="lnr lnr-text-align-justify"></span>
 		<span ng-click="layoutEditor.addChildren('headerText')" class="lnr lnr-bold"></span>
 		<span ng-click="layoutEditor.addChildren('mediaContainer')" class="lnr lnr-picture"></span>
 	</div>
 	<div class="options">
-		<span class="lnr lnr-cloud-upload" ng-click="layoutEditor.save();"></span>
+		<span class="lnr lnr-cloud-upload" ng-if="layoutEditor.options.save" ng-click="layoutEditor.save();"></span>
 		<span class="lnr lnr-magic-wand" ng-click="layoutEditor.css.openCssEditor($event, layoutEditor.layoutContainer);"></span>
-		<span class="lnr lnr-cross" ng-click="layoutEditor.delete();"></span>
+		<span class="lnr lnr-trash" ng-if="layoutEditor.options.delete" ng-click="layoutEditor.delete();"></span>
 	</div>
 	<div class="children-layout-container" 
 		ng-repeat="children in layoutEditor.layoutContainer.html track by $index"
@@ -23,7 +30,7 @@
 		</div>
 		<div class="options">
 			<span ng-click="layoutEditor.css.openCssEditor($event, layoutEditor.layoutContainer, children);" class="lnr lnr-magic-wand"></span>
-			<span ng-click="layoutEditor.removeChildren($index)" class="lnr lnr-cross"></span>
+			<span ng-click="layoutEditor.removeChildren($index)" class="lnr lnr-trash"></span>
 		</div>
 		<children-layout meta-data="children"></children-layout>
 	</div>
