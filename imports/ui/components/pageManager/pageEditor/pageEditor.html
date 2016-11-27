@@ -1,5 +1,5 @@
 <section class="parent-page-container" layout="row" layout-wrap ui-sortable 
-	ng-model="pageEditor.layouts"
+	ng-model="pageEditor.pageContainer.html"
 	ng-class="{'contract-layouts' : pageEditor.contractLayouts}">
 	<div class="parent-name">{{pageEditor.name || 'Page'}}</div>
 	<div class="new-elements">
@@ -20,14 +20,14 @@
 		<span class="lnr lnr-trash" ng-click="pageEditor.delete();"></span>
 	</div>
 	<div class="children-page-container" flex="100"
-		ng-repeat="layout in pageEditor.layouts track by $index"
-		ng-class="{'contract-layout' : !pageEditor.contractLayout[layout.class]}">
+		ng-repeat="layout in pageEditor.pageContainer.html track by $index"
+		ng-class="{'contract-layout' : pageEditor.contractLayout[layout.class]}">
 		<div class="layout-name">{{layout.metaData.name}}</div>
 		<div class="layout-options">
-			<span class="lnr lnr-frame-expand" 
+			<span class="lnr lnr-frame-contract" 
 				ng-if="!pageEditor.contractLayout[layout.class] && !pageEditor.contractLayouts" 
 				ng-click="pageEditor.contractLayout[layout.class] = true"></span>
-			<span class="lnr lnr-frame-contract" 
+			<span class="lnr lnr-frame-expand" 
 				ng-if="pageEditor.contractLayout[layout.class] && !pageEditor.contractLayouts" 
 				ng-click="pageEditor.contractLayout[layout.class] = false"></span>
 			<span ng-click="pageEditor.removeLayout($index)" class="lnr lnr-cross"></span>
