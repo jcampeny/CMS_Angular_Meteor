@@ -46,12 +46,20 @@ export function updatePage(page){
 
 	//delete hashKeys
 	page.html = deleteHashKeys(page.html);
+	
+	//delete _id to avoid miniMongo Error when he try to save _id field
+	const saveId = page._id;
+	delete page._id
 
+	//Upadate
 	Pages.update({
-		_id : page._id
+		_id : saveId
 	},{
 		$set : page
 	});
+
+	//Reassign _id to return to the front 
+	page._id = saveId;
 
 	return { page };
 }

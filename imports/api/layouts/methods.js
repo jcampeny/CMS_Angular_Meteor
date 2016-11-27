@@ -40,11 +40,19 @@ export function updateLayout(layout){
 	//if(!Layouts.findOne({_id : layout._id}))
 		//throw new Meteor.Error(400, 'This layout does not exist');
 
+	//delete _id to avoid miniMongo Error when he try to save _id field
+	const saveId = layout._id;
+	delete layout._id
+
+	//Upadate
 	Layouts.update({
-		_id : layout._id
+		_id : saveId
 	},{
 		$set : layout
 	});
+
+	//Reassign _id to return to the front 
+	layout._id = saveId;
 
 	return { layout };
 }
