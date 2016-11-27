@@ -72,7 +72,7 @@ class PageEditor{
 				(error, response) => {
 					if(!error){
 						this.name = response.metaData.name;
-						this.pageContainer = response;	
+						this.pageContainer = response;
 					} else {
 						this.root.throwMessage(error.reason);					
 					}

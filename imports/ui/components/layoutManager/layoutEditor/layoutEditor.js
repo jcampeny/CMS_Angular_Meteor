@@ -13,7 +13,7 @@ class LayoutEditor{
 
 		$reactive(this).attach($scope);
 
-		this.layoutId 		= $stateParams._id || this.layoutId;
+		this.layoutId 		= this.layoutId || $stateParams._id;
 		this.root 			= $rootScope;
 		this.childrenLayout = childrenLayout;
 		this.css 			= cssManager;
@@ -24,7 +24,7 @@ class LayoutEditor{
 		this.createLayout();
 		this.scope.$watch( 
 			() => this.layoutId, 
-			()=> {this.createLayout()}
+			()=> {this.createLayout();}
 		);
 	}
 
@@ -66,7 +66,8 @@ class LayoutEditor{
 			this.layoutFacade.getLayoutById(this.layoutId,
 				(error, response) => {
 					if(!error){
-						this.name = response.metaData.name;
+						if(response && response.metaData)
+							this.name = response.metaData.name;
 						this.layoutContainer = response;	
 					} else {
 						this.layoutFacade.throwMessage(error.reason);					

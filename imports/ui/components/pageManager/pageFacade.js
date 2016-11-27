@@ -32,6 +32,27 @@ class PageFacadeService {
 		})
 	}
 
+	deletePage(page, callback) {
+		const message = 'Do you want to delete ' + page.metaData.name + ' page?';
+		const options = {
+			yes : 'Delete',
+			no : 'Cancel'
+		};
+
+		this.popup.open(message, options, 
+			(response) => {
+				if(response === true){
+					this.call('removePage', page._id, 
+						(error, response) => {
+							if(typeof callback == 'function')
+								callback(error, response);
+						}
+					);
+				}
+			}
+		);
+	}
+
 	save(page, callback){
 		if(!page._id){
 			this.call('insertPage', page,
@@ -58,7 +79,7 @@ class PageFacadeService {
 	}
 
 	getPageById(pageId, callback) {
-		this.call('getLayout', pageId, 
+		this.call('getPage', pageId, 
 			(error, response)=>{
 				if(typeof callback == 'function')
 					callback(error, response);

@@ -3,9 +3,9 @@
 	<article>
 		<ul>
 			<li ng-repeat="page in pageResume.pages">
-				<span class="name">{{page.name}}</span>
-				<span class="lnr lnr-trash delete"></span>
-				<span class="lnr lnr-pencil edit"></span>
+				<span class="name">{{page.metaData.name}}</span>
+				<span class="lnr lnr-trash delete" ng-click="pageResume.delete(page)"></span>
+				<span class="lnr lnr-pencil edit" ui-sref="home.pages.edit({_id : page._id})"></span>
 			</li>
 		</ul>
 	</article>
@@ -19,10 +19,10 @@
 				ng-click="pageResume.setFilter('post')">Posts</span>
 		</div>
 		<div class="pagination">
-			<span class="lnr lnr-chevron-left"></span>
-			<span class="actual-page">{{pageResume.page}} /</span>
+			<span class="lnr lnr-chevron-left" ng-click="pageResume.movePage('prev')"></span>
+			<span class="actual-page" >{{pageResume.page}} /</span>
 			<span class="total-pages">{{pageResume.totalPages}}</span>
-			<span class="lnr lnr-chevron-right"></span>
+			<span class="lnr lnr-chevron-right" ng-click="pageResume.movePage('next')"></span>
 		</div>
 	</nav>
 </section>
