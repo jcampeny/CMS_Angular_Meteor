@@ -5,7 +5,7 @@
 			<li ng-repeat="layout in layoutResume.layouts">
 				<span class="name">{{layout.metaData.name}}</span>
 				<span class="lnr lnr-trash delete" ng-click="layoutResume.delete(layout)"></span>
-				<span class="lnr lnr-pencil edit" ui-sref="home.layouts.edit({_id : layout._id})"></span>
+				<span class="lnr lnr-pencil edit" ui-sref="home.layouts.edit({layoutId : layout._id})"></span>
 			</li>
 		</ul>
 	</article>

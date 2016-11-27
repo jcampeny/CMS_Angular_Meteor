@@ -5,7 +5,7 @@
 			<li ng-repeat="page in pageResume.pages">
 				<span class="name">{{page.metaData.name}}</span>
 				<span class="lnr lnr-trash delete" ng-click="pageResume.delete(page)"></span>
-				<span class="lnr lnr-pencil edit" ui-sref="home.pages.edit({_id : page._id})"></span>
+				<span class="lnr lnr-pencil edit" ui-sref="home.pages.edit({pageId : page._id})"></span>
 			</li>
 		</ul>
 	</article>

@@ -16,7 +16,7 @@ class PageEditor{
 		this.pageFacade   = pageFacade;
 		this.root 		  = $rootScope;
 
-		this.pageId 		    = $stateParams._id || this.pageId;
+		this.pageId 		    = $stateParams.pageId || this.pageId;
 		this.pageContainer		= {};
 		this.contractLayouts    = false;
 		this.contractLayout     = [];

@@ -50,7 +50,7 @@ function config ($stateProvider){
 				template : '<page-creation></page-creation>'
 			})
 			.state('home.pages.edit', {
-				url : '/:_id',
+				url : '/:pageId',
 				template : '<page-creation></page-creation>'
 			})
 			.state('home.pages.display', {
@@ -71,7 +71,7 @@ function config ($stateProvider){
 				template : '<layout-creation></layout-creation>'
 			})
 			.state('home.layouts.edit', {
-				url : '/:_id',
+				url : '/:layoutId',
 				template : '<layout-creation></layout-creation>'
 			})
 			.state('home.layouts.display', {

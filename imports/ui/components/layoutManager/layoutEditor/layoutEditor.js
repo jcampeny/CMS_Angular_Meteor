@@ -13,7 +13,7 @@ class LayoutEditor{
 
 		$reactive(this).attach($scope);
 
-		this.layoutId 		= this.layoutId || $stateParams._id;
+		this.layoutId 		= this.layoutId || $stateParams.layoutId;
 		this.root 			= $rootScope;
 		this.childrenLayout = childrenLayout;
 		this.css 			= cssManager;
@@ -68,7 +68,8 @@ class LayoutEditor{
 					if(!error){
 						if(response && response.metaData)
 							this.name = response.metaData.name;
-						this.layoutContainer = response;	
+						this.layoutContainer = response;
+						this.layoutContainer.html = this.html || this.layoutContainer.html;	
 					} else {
 						this.layoutFacade.throwMessage(error.reason);					
 					}
@@ -77,7 +78,8 @@ class LayoutEditor{
 		} 
 		else 
 		{ //create a standard layout to be created
-			this.layoutContainer = this.layoutFacade.createEmptyLayout();				
+			this.layoutContainer = this.layoutFacade.createEmptyLayout();
+			this.layoutContainer.html = this.html || this.layoutContainer.html;				
 		}
 	}	
 
@@ -104,7 +106,8 @@ export default angular.module(name, [
 	bindings : {
 		name : '=',
 		layoutId : '<',
-		options : '<'
+		options : '<',
+		html : '='
 	},
 	controllerAs : name,
 	controller : LayoutEditor
