@@ -15,10 +15,9 @@ export class CssManagerService{
 	    return text;
 	}
 
-	openCssEditor(event, layout, childrenLayout){
+	openCssEditor(event, container){
 		this.root.$emit('openCssEditor', {
-			layout,
-			childrenLayout	
+			container	
 		});
 	}
 }

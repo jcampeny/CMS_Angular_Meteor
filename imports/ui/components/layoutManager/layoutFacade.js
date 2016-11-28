@@ -57,19 +57,25 @@ class LayoutFacadeService {
 	}
 
 	save(layout, callback){
-		if(!layout._id){
-			this.call('insertLayout', layout,
-				(error, response) => {
-					if(typeof callback == 'function')
-						callback(error, response);
+		const msg = 'Do you want to save this Layout?';
+		const options = {yes : 'Accept', no: 'Cancel'};
 
-					//Throw event on LayoutSave
-					this.root.$emit('layoutSaved', {layout : response.layout});
+		this.popup.open(msg, options, 
+			(response) => {
+				if(response){
+					if(!layout._id){
+						this.call('insertLayout', layout,
+							(error, response) => {
+								if(typeof callback == 'function')
+									callback(error, response);
+							}
+						);
+					}  else {
+						this.update(layout, callback);
+					}	
 				}
-			);
-		}  else {
-			this.update(layout, callback);
-		}	
+			}
+		);
 	}
 
 	update(layout, callback){
@@ -77,12 +83,10 @@ class LayoutFacadeService {
 			this.call('updateLayout', layout,
 				(error, response) => {
 					if(typeof callback == 'function')
-						callback(error, response);
-					
+						callback(error, response);	
 				}
 			);
 		}
-
 	}
 
 	getLayoutById(layoutId, callback) {

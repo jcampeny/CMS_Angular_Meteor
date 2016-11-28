@@ -22,8 +22,6 @@ class PageEditor{
 		this.contractLayout     = [];
 
 		this.createPage();
-
-		this.handleEvents();
 	}
 
 	save(page = this.pageContainer){
@@ -36,6 +34,7 @@ class PageEditor{
 					this.root.throwMessage('Page saved successfully');
 				} else {
 					this.root.throwMessage(error.reason);
+					this.root.$apply();
 				}
 			}
 		);
@@ -91,18 +90,6 @@ class PageEditor{
 
 	removeLayout(index){
 		this.pageContainer.html.splice(index, 1);
-	}
-
-	handleEvents(){
-		//handle layout saved event to assign new _id to the layout
-		this.root.$on('layoutSaved', (event, args) => {
-			this.pageContainer.html = this.pageContainer.html.map( (layout) => {
-				if(layout.metaData.name === args.layout.metaData.name)
-					layout._id = args.layout._id;
-				
-				return layout;
-			});
-		})
 	}
 }
 

@@ -1,7 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 
 import { Layouts } from './collection';
-	
+import { cleanItem } from '../utils/functions';
+
 export function insertLayout(newLayout){
 	if (!this.userId)
 		throw new Meteor.Error(400, 'You must be logged in');
@@ -12,16 +13,17 @@ export function insertLayout(newLayout){
 	if (newLayout.metaData.name == '')
 		throw new Meteor.Error(400, 'You must assign a name to this Layout');
 
-	const lauyoutRepeated = Layouts.find({
+	const layoutRepeated = Layouts.find({
 		'metaData.name' : newLayout.metaData.name,
 		'metaData.owner' : this.userId
 	}).count();
 
-	if(lauyoutRepeated > 0)
+	if(layoutRepeated > 0)
 		throw new Meteor.Error(400, 'You have another saved layout with this name');
 
+
 	//insert into DB and get _id
-	newLayout._id = Layouts.insert(newLayout);
+	newLayout._id = Layouts.insert(cleanItem(newLayout));
 
 	return { layout: newLayout };
 }
@@ -48,7 +50,7 @@ export function updateLayout(layout){
 	Layouts.update({
 		_id : saveId
 	},{
-		$set : layout
+		$set : cleanItem(layout)
 	});
 
 	//Reassign _id to return to the front 

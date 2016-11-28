@@ -1,6 +1,4 @@
 import { Meteor } from 'meteor/meteor';
-import { Layouts } from './collection';
-import json2html from 'node-json2html';
 
 import { __DIR__ , parseJsonToCssSyntax} from '../utils/functions';
 

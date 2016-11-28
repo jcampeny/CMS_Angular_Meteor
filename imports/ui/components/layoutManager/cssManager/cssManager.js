@@ -6,8 +6,6 @@ import { Meteor } from 'meteor/meteor';
 import template from './cssManager.html';
 import { CssManagerService } from './cssManagerService';
 
-import { Styles } from '../../../../api/styles';
-
 class CssManager{
 	constructor($scope, $reactive, $rootScope){
 		'ngInject';
@@ -18,69 +16,12 @@ class CssManager{
 		this.scope = $scope;
 		this.handleEvents();
 
-		this.parentLayout 	= {};
-		this.classId 		= {};
+		this.container 	= {};
+		this.backupStyle = {};
 		this.newCssProperty = {
 			key : '',
 			value : ''
 		};
-
-		this.subscribe('styles', () => [this.getReactively('parentLayout._id', true)]);
-
-		this.helpers({
-			styleSaved () {
-				return Styles.findOne({
-					class : this.getReactively('classId')
-				});
-			}
-		});
-	}
-
-	saveClass(
-		parentLayout = this.parentLayout, 
-		properties   = (this.styleSaved) ? angular.copy(this.styleSaved.properties) : null, 
-		className    = this.classId
-	){
-		if ( this.styleSaved && this.styleSaved._id )
-		{ //if class exist go update
-			const msg = 'Do you want to overwrite this class?';
-			const options = {yes : 'Yes', no : 'No'};
-
-			this.root.throwMessage(msg, options, 
-				(response, options) => {
-					if (response) this.updateClass();
-				}
-			);
-		} 
-		else 
-		{ //save in DB if this class was not found
-			this.call('insertStyle', className, properties, parentLayout._id, 
-				(err, res) => {
-					if (!err){
-						this.root.throwMessage('Your Css class has been successfully saved');
-					} else {
-						this.root.throwMessage(err.reason);
-					}
-					this.root.$apply();
-				}
-			);
-		}
-	}
-
-	updateClass(
-		properties = (this.styleSaved) ? this.styleSaved.properties : null,
-		styleId = this.styleSaved._id
-	){
-		this.call('updateStyle', properties, styleId,
-			(err, res) => {
-				if (!err){
-					this.root.throwMessage('Your Css class has been successfully saved');
-				} else {
-					this.root.throwMessage(err.reason);
-				}
-				this.root.$apply();
-			}
-		);
 	}
 
 	addProperty(property = this.newCssProperty){
@@ -89,13 +30,10 @@ class CssManager{
 		parsedProperty[property.key] = property.value;
 
 		//add property to cssProperties
-		if(!this.styleSaved)
-			this.styleSaved = {};
+		if(!this.container.styles)
+			this.container.styles = [];
 		
-		if(!this.styleSaved.properties)
-			this.styleSaved.properties = [];
-		
-		this.styleSaved.properties.push(parsedProperty);
+		this.container.styles.push(parsedProperty);
 
 		//reset values
 		this.newCssProperty = {key : '', value : ''};
@@ -112,20 +50,17 @@ class CssManager{
 		$('#cssManager').addClass('active');
 	}
 
-	closeCssEditor(){
+	closeCssEditor(save = false){
 		$('#cssManager').removeClass('active');
+		if(!save)
+			this.container.styles = this.backupStyle;
 	}
 
 	handleEvents(){
 		this.root.$on('openCssEditor', (event, args) => {
-			if (!args.layout._id) {
-				//Avoid to save CSS without any related layout 
-				this.root.throwMessage('You have to save Layout to add Styles');
-			} else {
-				this.parentLayout = args.layout;
-				this.classId = (args.childrenLayout) ? args.childrenLayout.class : args.layout.class;
-				this.openCssEditor();
-			}
+			this.container = args.container;
+			this.backupStyle = angular.copy(args.container.styles);
+			this.openCssEditor();
 		});
 	}
 }

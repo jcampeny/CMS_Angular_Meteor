@@ -15,13 +15,13 @@
 		</div>
 		<!-- Resume -->
 		<span ng-click="cssManager.closeCssEditor()" class="lnr lnr-cross"></span>
-		<span ng-click="cssManager.saveClass()" class="lnr lnr-cloud-upload"></span>
-		.{{cssManager.classId}} {
-		<div class="property" ng-repeat="property in cssManager.styleSaved.properties">
+		.{{cssManager.container.class}} {
+		<div class="property" ng-repeat="property in cssManager.container.styles">
 			<span ng-click="cssManager.removeProperty(property)" class="lnr lnr-cross"></span>
 			{{property | getCssKey}} : {{property | getCssValue}}
 		</div>
 		}
+		<a class="accept" ng-click="cssManager.closeCssEditor(true)">Save</a>
 	</article>
 	<div class="shape" ng-click="cssManager.closeCssEditor()"></div>
 </section>
