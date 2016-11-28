@@ -22,7 +22,9 @@ function config ($stateProvider){
 			'<header-options></header-options>'+
 			'<navigation></navigation>'+
 			'<div ui-view="" class="views-container"></div>'+
-			'<css-manager></css-manager>',
+			'<css-manager></css-manager>'+
+			'<popup></popup>' +
+			'<popup-item-selector></popup-item-selector>',
 		abstract: true,
 		resolve : {
 			currentUser($q){
@@ -34,26 +36,52 @@ function config ($stateProvider){
 			}
 		}
 	})
-	.state('home.resume', {
-		url : '',
-		template : '<resume></resume>'
-	})
-	.state('home.page', {
-		url : 'create-page',
-		template : '<page-creation></page-creation>'
-	})
-	.state('home.section', {
-		url : 'edit-sections',
-		template : '<sections-edit></sections-edit>'
-	})
-	.state('home.layout', {
-		url : 'create-layout',
-		template : '<layout-creation></layout-creation>'
-	})
-	.state('home.media', {
-		url : 'media',
-		template : '<media-section></media-section>'
-	});
+		.state('home.resume', {
+			url : '',
+			template : '<resume></resume>'
+		})
+		.state('home.pages', {
+			url : 'pages',
+			abstract: true,
+			template : '<div ui-view=""></div>'
+		})
+			.state('home.pages.create', {
+				url : '/create',
+				template : '<page-creation></page-creation>'
+			})
+			.state('home.pages.edit', {
+				url : '/:pageId',
+				template : '<page-creation></page-creation>'
+			})
+			.state('home.pages.display', {
+				url : '',
+				template : '<page-resume></page-resume>'
+			})
+		.state('home.section', {
+			url : 'edit-sections',
+			template : '<sections-edit></sections-edit>'
+		})
+		.state('home.layouts', {
+			url : 'layouts',
+			abstract: true,
+			template : '<div ui-view=""></div>'
+		})
+			.state('home.layouts.create', {
+				url : '/create',
+				template : '<layout-creation></layout-creation>'
+			})
+			.state('home.layouts.edit', {
+				url : '/:layoutId',
+				template : '<layout-creation></layout-creation>'
+			})
+			.state('home.layouts.display', {
+				url : '',
+				template : '<layout-resume></layout-resume>'
+			})
+		.state('home.media', {
+			url : 'media',
+			template : '<media-section></media-section>'
+		});
 }
 
 //AdminViewFacade's run

@@ -18,6 +18,26 @@ layout-editor{
 			top: 0px; left: 0px;
 			padding: 0.4em 0.6em;
 			font-size: 12px;
+			input{    
+				background-color: transparent;
+    			border: none;
+    			@include box-shadow(inset $shadow-container);
+    			padding: 0px 5px;
+    		}
+			span.lnr.lnr-pencil{
+				@include icon-btn(white, $black);
+				font-size: 12px;
+				cursor : pointer;
+			}
+		}
+		div.new-elements{
+			position: absolute;
+			top: $mini-padding; left: 50%;
+			@include transform(translateX(-50%));
+			span.lnr{
+				@include icon-btn($light-emerald, $dark-emerald);
+				margin: $mini-padding / 2;
+			}
 		}
 		div.options{
 			position: absolute;

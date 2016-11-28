@@ -1,20 +1,28 @@
 <section class="page-resume-container">
-	<header>Pages <span class="lnr lnr-file-add"></span></header>
+	<header>Pages <span class="lnr lnr-file-add" ui-sref="home.pages.create"></span></header>
 	<article>
 		<ul>
 			<li ng-repeat="page in pageResume.pages">
-				<span class="name">{{page.name}}</span>
-				<span class="lnr lnr-trash delete"></span>
-				<span class="lnr lnr-pencil edit"></span>
+				<span class="name">{{page.metaData.name}}</span>
+				<span class="lnr lnr-trash delete" ng-click="pageResume.delete(page)"></span>
+				<span class="lnr lnr-pencil edit" ui-sref="home.pages.edit({pageId : page._id})"></span>
 			</li>
 		</ul>
 	</article>
 	<nav>
+		<div class="filter-by">
+			<span class="tag" 
+				ng-class="{'active' : pageResume.filterBy == 'page'}"
+				ng-click="pageResume.setFilter('page')">Pages</span>
+			<span class="tag" 
+				ng-class="{'active' : pageResume.filterBy == 'post'}"
+				ng-click="pageResume.setFilter('post')">Posts</span>
+		</div>
 		<div class="pagination">
-			<span class="lnr lnr-chevron-left"></span>
-			<span class="actual-page">{{pageResume.page}} /</span>
+			<span class="lnr lnr-chevron-left" ng-click="pageResume.movePage('prev')"></span>
+			<span class="actual-page" >{{pageResume.page}} /</span>
 			<span class="total-pages">{{pageResume.totalPages}}</span>
-			<span class="lnr lnr-chevron-right"></span>
+			<span class="lnr lnr-chevron-right" ng-click="pageResume.movePage('next')"></span>
 		</div>
 	</nav>
 </section>

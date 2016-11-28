@@ -22,7 +22,7 @@ layout-resume{
 				li{
 					padding: $margin $margin;
 					border-bottom: 1px solid white;
-					@include transition(all $transition);
+					//@include transition(all $transition);
 					@media #{$gt-sm}{
 						&:hover{
 							//background-color: rgba(87, 166, 158, 0.1);
@@ -44,7 +44,6 @@ layout-resume{
 		}
 		nav{
 			font-size: 12px;
-			padding: $margin 0;
 			@include clear-both();
 			div.pagination{
 				float: right;
@@ -59,6 +58,7 @@ layout-resume{
 				}
 			}
 			div.filter-by{
+				padding: $margin 0;
 				float: left;
 				display: inline-block;
 				span.tag{

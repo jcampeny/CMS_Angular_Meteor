@@ -2,7 +2,7 @@ media-resume{
 	section.media-resume-container{
 		display: block;
 		background-color: $black;
-		padding: $margin $margin 0px;
+		padding: $margin $margin;
 		@include box-shadow($shadow-blur);	
 		header{
 			border-bottom: 1px solid white;
@@ -23,11 +23,11 @@ media-resume{
 				div.media{
 					display: inline-block;
 					margin: 0px $margin;
-					max-height: 300px;
+					max-height: 200px;
 					position: relative;
 					@include box-shadow($shadow-blur-green);	
 					img{
-						max-height: 300px;
+						max-height: 200px;
 					}
 					div.shape{
 						position: absolute;
@@ -62,7 +62,6 @@ media-resume{
 		}
 		nav{
 			font-size: 12px;
-			padding: $margin 0;
 			@include clear-both();
 			div.pagination{
 				span.lnr{

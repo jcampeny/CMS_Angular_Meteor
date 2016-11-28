@@ -44,7 +44,6 @@ page-resume{
 		}
 		nav{
 			font-size: 12px;
-			padding: $margin 0;
 			@include clear-both();
 			div.pagination{
 				float: right;
@@ -55,6 +54,14 @@ page-resume{
 					top: 2px;
 					padding-left: 5px;
 					&:first-child{padding-right: 5px;}
+				}
+			}
+			div.filter-by{
+				padding: $margin 0;
+				float: left;
+				display: inline-block;
+				span.tag{
+					@extend .cms-tag;
 				}
 			}
 		}	

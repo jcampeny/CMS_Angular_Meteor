@@ -7,67 +7,96 @@ import {} from 'angular-ui-sortable';
 import template from './layoutEditor.html';
 
 class LayoutEditor{
-	constructor($scope, $reactive, layoutEditor, childrenLayout, cssManager){
+	constructor($scope, $reactive, $rootScope, childrenLayout, cssManager, $stateParams, layoutFacade, $state)
+	{
 		'ngInject';
 
 		$reactive(this).attach($scope);
 
-		this.layoutEditor = layoutEditor;
+		this.layoutId 		= this.layoutId || $stateParams.layoutId;
+		this.root 			= $rootScope;
 		this.childrenLayout = childrenLayout;
-		this.css = cssManager;
+		this.css 			= cssManager;
+		this.layoutFacade 	= layoutFacade;
+		this.state 			= $state;
+		this.scope 			= $scope;
 
-		this.handleEvents();
-
-		this.plainText = 0;
-		this.headerText = 0;
-		this.media = 0;
-
-		this.layoutContainer = {
-			'<>' : 'section',
-			class : this.css.generateClassId(),
-			layout : 'row',
-			html : []
-		};
+		this.createLayout();
+		this.scope.$watch( 
+			() => this.layoutId, 
+			()=> {this.createLayout();}
+		);
 	}
 
-	parseLayout(layout){
-		Meteor.call('layoutParser', layout,
+	save(layout = this.layoutContainer){
+		this.layoutContainer.metaData.name = this.name;
+
+		this.layoutFacade.save(layout, 
 			(error, response) => {
-				console.log(response);
-			});
+				if(!error){
+					this.layoutContainer = response.layout;
+					this.layoutFacade.throwMessage('Layout saved successfully');
+				} else {
+					this.layoutFacade.throwMessage(error.reason);
+				}
+			}
+		);
 	}
+
+	delete(layout = this.layoutContainer) {
+		if(this.layoutContainer._id){
+			this.layoutFacade.deleteLayout(layout, 
+				(error, response)=>{
+					if(!error){
+						this.state.go('home.layouts.display');
+						this.layoutFacade.throwMessage('Layout ' + layout.metaData.name + ' deleted.');
+					} else {
+						this.layoutFacade.throwMessage(error.reason);
+					}
+				}
+			);			
+		} else {
+			this.state.go('home.layouts.display');
+		}
+	}
+
+	createLayout(){
+		if(!this.layoutToPrint){//Rewrite if there are some layout to edit
+			if(this.layoutId) 
+			{ //if ids layout exist... go search in DB
+				this.layoutFacade.getLayoutById(this.layoutId,
+					(error, response) => {
+						if(!error){
+							if(response && response.metaData)
+								this.name = response.metaData.name;
+							this.layoutContainer = response;	
+						} else {
+							this.layoutFacade.throwMessage(error.reason);					
+						}
+					}
+				);
+			} 
+			else 
+			{ //create a standard layout to be created
+				this.layoutContainer = this.layoutFacade.createEmptyLayout();				
+			}
+		} else {
+			this.layoutContainer = this.layoutToPrint || this.layoutContainer;			
+		}
+	}	
 
 	removeChildren(index){
 		this.layoutContainer.html.splice(index, 1);
 	}
 
-	handleEvents(){
-		this.layoutEditor.onAddElement((type) => {
-			this.childrenLayout.createElement(type, (newElement) => {
-				this.layoutContainer.html.push(newElement);
-				this.parseLayout(this.layoutContainer);
-			});
+	addChildren(type){
+		this.childrenLayout.createChildren(type, (newChildren) => {
+			this.layoutContainer.html.push(newChildren);
+			this.layoutFacade.parseLayout(this.layoutContainer);
 		});
-	}
+	}	
 }
 
-class LayoutEditorService{
-	constructor(){
-		'ngInject';
-
-		this.callback;
-
-		this.addElement = (element) => {
-			//trigger callback
-			this.callback(element);
-		}
-
-		this.onAddElement = (callback) => {
-			//add callback function to callbacks array
-			this.callback = callback;
-		}
-	}
-}
 
 const name = 'layoutEditor';
 
@@ -77,10 +106,13 @@ export default angular.module(name, [
 ]).component(name, {
 	template,
 	bindings : {
-		name : '<'
+		name : '=',
+		layoutId : '<',
+		options : '<',
+		layoutToPrint : '='
 	},
 	controllerAs : name,
 	controller : LayoutEditor
-}).service(name, LayoutEditorService);
+});
 
 

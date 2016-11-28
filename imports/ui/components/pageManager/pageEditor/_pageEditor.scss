@@ -1,0 +1,84 @@
+page-editor{
+	$mini-padding: 5px;
+	section.parent-page-container{
+		width: 100%;
+		background-color: $black;
+		min-height: 150px;
+		border: 1px solid $light-emerald;
+		position: relative;
+		margin-top: $margin;
+		padding-top: $margin + 10;
+		@include clear-both();
+		@include box-shadow($shadow-container);
+		div.parent-name{
+			display: inline-block;
+			position: absolute;
+			background-color: $light-emerald;
+			top: 0px; left: 0px;
+			padding: 0.4em 0.6em;
+			font-size: 12px;
+		}
+		div.new-elements{
+			position: absolute;
+			top: $mini-padding; left: 50%;
+			@include transform(translateX(-50%));
+			span.lnr{
+				@include icon-btn($light-emerald, $dark-emerald);
+				margin: $mini-padding / 2;
+				&.add-layout{
+					margin-left: $margin / 2;
+					span{
+						font-size: 14px;
+						position: relative;
+						top: -11px;
+						left: -9px;
+					}
+					
+				}
+			}
+		}
+		div.options{
+			position: absolute;
+			top: 0px; right: 0px;
+			padding: 0.3em 0.6em;
+			span.lnr{
+				@include icon-btn($light-emerald, $dark-emerald);
+				padding-left: $mini-padding;
+				&.lnr-frame-contract,
+				&.lnr-frame-expand,
+				&.lnr-lock{
+					@include transition(all 0s);
+				}
+			}
+		}
+		div.children-page-container{
+			position: relative;
+			border: 1px solid $light-emerald;
+			margin: $mini-padding;
+			padding: $mini-padding;
+			padding-top: $mini-padding * 2;
+			background-color: $gray;
+			min-height: 80px !important;
+			@include box-shadow(inset $shadow-blur-green);
+			div.layout-name{@extend div.parent-name;}
+			div.layout-options{@extend div.options;}
+			div.layout-name{display: none;}
+			&.contract-layout{
+				cursor: move;
+				padding-top: 30px;
+				margin-top: 0px;
+				div.layout-name{display: block;}
+				layout-editor{ display:none; }
+			}
+		}
+		&.contract-layouts{
+			padding-top: 30px;
+			div.children-page-container{
+				cursor: move;
+				margin-top: 0px;
+			}
+			div.layout-name{display: block !important;}
+			layout-editor{ display:none !important; }
+		}
+	}
+}

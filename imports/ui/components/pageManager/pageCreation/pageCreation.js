@@ -3,25 +3,25 @@ import angularMeteor from 'angular-meteor';
 
 import { Meteor } from 'meteor/meteor';
 
-import template from './layoutCreation.html';
+import template from './pageCreation.html';
 
-class LayoutCreation{
+class PageCreation{
 	constructor($scope, $reactive){
 		'ngInject';
 
 		$reactive(this).attach($scope);
 		
-		this.layoutName = 'Layout 1';
-		this.layoutType = 'other';
+		this.pageName = 'Page 1';
+		this.pageType = 'page';
 	}
 }
 
-const name = 'layoutCreation';
+const name = 'pageCreation';
 
 export default angular.module(name, [
 	angularMeteor
 ]).component(name, {
 	template,
 	controllerAs : name,
-	controller : LayoutCreation
+	controller : PageCreation
 });

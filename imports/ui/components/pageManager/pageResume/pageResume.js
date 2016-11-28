@@ -5,31 +5,63 @@ import { Meteor } from 'meteor/meteor';
 
 import template from './pageResume.html';
 
+import { Pages } from '../../../../api/pages';
+
 class PageResume{
-	constructor($scope, $reactive){
+	constructor($scope, $reactive, pageFacade){
 		'ngInject';
 
 		$reactive(this).attach($scope);
+		
+		this.pageFacade = pageFacade;
 
-		this.page = 1;
 		this.perPage = 4;
+		this.page = 1;
+		this.sort = {
+			'metaData.name' : 1
+		};
+		this.searchText = '';
+		
 
-		// this.helpers({
-		// 	pages(){
-		// 		return Pages.found({
-		// 		}, {
-		// 			limit : parseInt(this.getReactively('perPage')),
-		// 			skip : parseInt((this.getReactively('page') - 1) * this.perPage)
-		// 		});
-		// 	}
-		// });
-		this.pages = [
-			{ _id : 'V2UYB9834YBV43', name : 'Page 1'},
-			{ _id : '4C9M8G34C3MHGY', name : 'Page 2'},
-			{ _id : '84HGU9NRECMW2F', name : 'Page 3'},
-			{ _id : '2H48G934VB3434', name : 'Page 4'}
-		];
-		this.totalPages = 10;
+		this.subscribe('pages');
+
+		this.helpers({
+			pages(){
+				return Pages.find({}, {
+					limit : parseInt(this.perPage),
+					skip : parseInt((this.getReactively('page') - 1) * this.perPage),
+					sort : this.getReactively('sort')
+				});
+			},
+			totalPages(){
+				return Math.ceil(Pages.find({}).count() / this.perPage);
+			}
+		});
+
+		this.filterBy = '';
+	}
+
+	setFilter(filter = ''){
+		this.filterBy = (this.filterBy == filter) ? '' : filter;
+	}
+
+	movePage(direction) {
+		if(direction == 'next')
+			this.page = (this.totalPages > this.page) ? (this.page + 1) : this.page;
+		
+		if(direction == 'prev')
+			this.page = (this.page > 1) ? (this.page - 1) : this.page;
+	}
+
+	delete(page) {
+		this.pageFacade.deletePage(page, 
+			(error, response)=>{
+				if(!error){
+					let msg = 'Page ' + page.metaData.name + ' deleted.';
+					this.pageFacade.throwMessage(msg);
+				}
+			}
+		);
 	}
 }
 
