@@ -11,16 +11,25 @@ header-options{
 			width: 200px;
 			float: left;
 			text-align: center;
-			line-height: $header-height;
 			cursor: pointer;
 			h1{
 				margin: 0px;
 				font-size: 20px;
+				line-height: $header-height;
 				span.lnr{
 					margin-right: 5px;
 					color: $dark-emerald;
 					position: relative;
 					top: 2px;
+					@include transition(all $transition);
+				}					
+				@media #{$gt-sm}{
+					&:hover{
+						span.lnr{
+							color: white;
+							@include text-shadow($text-shadow-orange);
+						}
+					}					
 				}
 			}
 		}

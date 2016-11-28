@@ -4,6 +4,12 @@
           box-shadow: $shadow;
 }
 
+@mixin text-shadow($shadow...) {
+  -webkit-text-shadow: $shadow;
+     -moz-text-shadow: $shadow;
+          text-shadow: $shadow;
+}
+
 @mixin border-radius($radius) {
   -webkit-border-radius: $radius;
      -moz-border-radius: $radius;
