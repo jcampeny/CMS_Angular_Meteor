@@ -57,6 +57,10 @@ css-manager{
 					span.lnr{opacity: 1;}
 				}
 			}
+			a.accept{
+				@include btn-mix(white);
+				float: right;
+			}
 		}
 		div.shape{
 			position: absolute;

@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 
 import { Pages } from './collection';
-import { deleteHashKeys } from '../utils/functions';
+import { cleanItem } from '../utils/functions';
 
 export function insertPage(newPage){
 	if (!this.userId)
@@ -21,11 +21,8 @@ export function insertPage(newPage){
 	if(pageRepeated > 0)
 		throw new Meteor.Error(400, 'You have another saved page with this name');
 
-	//delete hashKeys
-	newPage.html = deleteHashKeys(newPage.html);
-
 	//insert into DB and get _id
-	newPage._id = Pages.insert(newPage);
+	newPage._id = Pages.insert(cleanItem(newPage));
 
 	return { page: newPage };
 }
@@ -44,9 +41,6 @@ export function updatePage(page){
 	//if(!Pages.findOne({_id : page._id}))
 		//throw new Meteor.Error(400, 'This page does not exist');
 
-	//delete hashKeys
-	page.html = deleteHashKeys(page.html);
-	
 	//delete _id to avoid miniMongo Error when he try to save _id field
 	const saveId = page._id;
 	delete page._id
@@ -55,7 +49,7 @@ export function updatePage(page){
 	Pages.update({
 		_id : saveId
 	},{
-		$set : page
+		$set : cleanItem(page)
 	});
 
 	//Reassign _id to return to the front 

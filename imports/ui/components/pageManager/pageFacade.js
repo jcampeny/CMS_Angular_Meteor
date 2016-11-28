@@ -54,16 +54,26 @@ class PageFacadeService {
 	}
 
 	save(page, callback){
-		if(!page._id){
-			this.call('insertPage', page,
-				(error, response) => {
-					if(typeof callback == 'function')
-						callback(error, response);
+		const msg = 'Do you want to save this page?';
+		const options = {yes : 'Accept', no: 'Cancel'};
+
+		this.popup.open(msg, options, 
+			(response) => {
+				if(response){
+					if(!page._id){
+						this.call('insertPage', page,
+							(error, response) => {
+								if(typeof callback == 'function')
+									callback(error, response);
+							}
+						);
+					}  else {
+						this.update(page, callback);
+					}					
 				}
-			);
-		}  else {
-			this.update(page, callback);
-		}
+
+			}
+		);
 	}
 
 	update(page, callback){

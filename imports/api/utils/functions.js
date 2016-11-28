@@ -8,6 +8,29 @@ export function parseJsonToCssSyntax (properties, name){
 	}
 }
 
+export function cleanItem (parentItem) {
+	//delete hashKeys
+	const keysToSearch = ['html', 'styles'];
+
+	keysToSearch.forEach( keyToSearch => {
+		parentItem[keyToSearch] = deleteHashKeys(parentItem[keyToSearch]);
+
+		if(parentItem.html && parentItem.html.length > 0 && typeof parentItem.html === 'object'){
+			parentItem.html = parentItem.html.map(item => {
+				item[keyToSearch] = deleteHashKeys(item[keyToSearch]);
+				if(item.html && item.html.length > 0 && typeof item.html === 'object'){
+					item.html = item.html.map(childrenItem => {
+						childrenItem[keyToSearch] = deleteHashKeys(childrenItem[keyToSearch]);
+						return childrenItem;
+					});					
+				}
+				return item;
+			});		
+		}
+	});
+
+	return parentItem;
+} 
 /*
 	array = [{a : b}, {c : b}]
 */
