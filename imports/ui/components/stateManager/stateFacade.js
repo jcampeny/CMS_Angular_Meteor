@@ -1,7 +1,7 @@
 import angular from 'angular';
 import angularMeteor from 'angular-meteor';
 
-import { name as SectionResume } from './sectionResume/sectionResume';
+import { name as StateEdit } from './stateEdit/stateEdit.js';
 
 class StateFacade {};
 
@@ -9,7 +9,7 @@ const name = 'stateFacade';
 
 export default angular.module(name, [
 	angularMeteor,
-	SectionResume
+	StateEdit
 ]).component(name, {
 	controllerAs : name,
 	controller : StateFacade

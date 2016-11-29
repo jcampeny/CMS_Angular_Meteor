@@ -1,0 +1,58 @@
+state-edit{
+	.tree-container{
+		background-color: $black;
+		padding: $margin;
+		@include clear-both();
+		@include box-shadow($shadow-blur);
+		a.cms-btn{
+			float: left;
+			margin-right: $margin;
+			&.edit{
+				float: right;
+				margin-right: $margin/2;
+			}
+			span{
+				@include icon-btn($dark-emerald, white);
+				font-size: 14px;
+			}
+		}
+
+		.angular-ui-tree-handle {
+		    padding: $margin/2;
+		    @include transition(all $transition);
+		    &:hover{
+			    background-color : $emeral-transparent;
+		    }
+		}
+
+		.angular-ui-tree-placeholder {
+		    background: $light-gray;
+		    @include box-shadow($shadow-blur-green);
+		}
+	
+		.angular-ui-tree-nodes{
+			.angular-ui-tree-nodes{
+				padding-left: 50px;
+			}
+		}
+		/* --- Tree --- */
+		.tree-node {
+		    background: $gray;
+		}
+
+		.tree-node-content {
+		    margin-bottom: 1px;
+		    color: white;
+		    font-size: 14px;
+		    font-weight: normal;
+		    &:hover{
+		    	color: white;
+		    }
+		}
+		.btn-save{
+			float: right;
+			margin-top: $margin;
+			@include btn-mix(white);
+		}
+	}
+}

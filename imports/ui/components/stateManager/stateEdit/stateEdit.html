@@ -1,0 +1,29 @@
+<!-- Nested node template -->
+<script type="text/ng-template" id="state_renderer.html">
+  <div ui-tree-handle class="tree-node tree-node-content">
+    <a class="cms-btn" ng-if="state.states && state.states.length > 0" data-nodrag ng-click="toggle(this)"><span
+        class="lnr"
+        ng-class="{
+          'lnr-chevron-right': collapsed,
+          'lnr-chevron-down': !collapsed
+        }"></span></a>
+    {{state.name}}
+    <a class="cms-btn edit"><span class="lnr lnr-pencil"></span></a>
+  </div>
+  <ol ui-tree-nodes="" ng-model="state.states" ng-class="{hidden: collapsed}">
+    <li ng-repeat="state in state.states" ui-tree-node ng-include="'state_renderer.html'">
+    </li>
+  </ol>
+</script>
+
+<!-- TEMPLATE -->
+<div>
+  <div class="tree-container">
+    <div ui-tree id="tree-root">
+      <ol ui-tree-nodes ng-model="stateEdit.state.states">
+        <li ng-repeat="state in stateEdit.state.states" ui-tree-node ng-include="'state_renderer.html'"></li>
+      </ol>
+    </div>
+    <a class="btn-save" ng-click="stateEdit.saveState()">Save</a>
+  </div>
+</div>
