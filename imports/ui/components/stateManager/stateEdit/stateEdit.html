@@ -8,7 +8,7 @@
           'lnr-chevron-down': !collapsed
         }"></span></a>
     {{state.name}}
-    <a class="cms-btn edit"><span class="lnr lnr-pencil"></span></a>
+    <a class="cms-btn edit" ui-sref="home.pages.edit({pageId : state.id})" data-nodrag><span class="lnr lnr-pencil"></span></a>
   </div>
   <ol ui-tree-nodes="" ng-model="state.states" ng-class="{hidden: collapsed}">
     <li ng-repeat="state in state.states" ui-tree-node ng-include="'state_renderer.html'">

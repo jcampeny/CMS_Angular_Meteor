@@ -51,10 +51,6 @@ class StateEdit{
 			}
 		);
 	}
-
-	editPage(id){
-		console.log(id);
-	}
 }
 
 const name = 'stateEdit';
