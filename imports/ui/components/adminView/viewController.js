@@ -57,9 +57,9 @@ function config ($stateProvider){
 				url : '',
 				template : '<page-resume></page-resume>'
 			})
-		.state('home.section', {
-			url : 'edit-sections',
-			template : '<sections-edit></sections-edit>'
+		.state('home.sitemap', {
+			url : 'sitemap',
+			template : '<state-edit></state-edit>'
 		})
 		.state('home.layouts', {
 			url : 'layouts',
