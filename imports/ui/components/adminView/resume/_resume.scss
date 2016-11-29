@@ -1,9 +1,6 @@
 resume{
 	page-resume,
-	post-resume,
-	section-resume,
-	layout-resume,
-	media-resume{
+	layout-resume{
 		width: 100%;
 		float: left;
 		margin-bottom: $margin;
@@ -13,5 +10,12 @@ resume{
 			&:nth-child(even){padding-left: $margin / 2}
 			&:nth-child(odd){padding-right: $margin / 2}
 		}
+	}
+	state-edit,
+	media-resume{
+		width: 100%;
+		float: left;
+		margin-bottom: $margin;
+		@include transition(all $transition-long);
 	}
 }

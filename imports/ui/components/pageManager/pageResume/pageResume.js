@@ -41,7 +41,7 @@ class PageResume{
 		this.filterBy = '';
 	}
 
-	setFilter(filter = ''){
+	setFilter(filter = ''){	
 		this.filterBy = (this.filterBy == filter) ? '' : filter;
 	}
 

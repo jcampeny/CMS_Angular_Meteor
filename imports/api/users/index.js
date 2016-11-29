@@ -17,6 +17,8 @@ if (Meteor.isServer){
 			user.profile = options.profile;
 			user.username = options.username;
 		}
+		//create state when a user registers
+		Meteor.call('createState', user._id);
 		return user;
 	});
 }

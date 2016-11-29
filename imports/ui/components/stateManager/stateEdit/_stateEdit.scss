@@ -1,9 +1,9 @@
 state-edit{
 	.tree-container{
 		background-color: $black;
-		padding: 0px;
-		@include box-shadow($shadow-blur);
 		padding: $margin;
+		@include clear-both();
+		@include box-shadow($shadow-blur);
 		a.cms-btn{
 			float: left;
 			margin-right: $margin;
@@ -19,6 +19,7 @@ state-edit{
 
 		.angular-ui-tree-handle {
 		    padding: $margin/2;
+		    @include transition(all $transition);
 		    &:hover{
 			    background-color : $emeral-transparent;
 		    }
@@ -47,6 +48,11 @@ state-edit{
 		    &:hover{
 		    	color: white;
 		    }
+		}
+		.btn-save{
+			float: right;
+			margin-top: $margin;
+			@include btn-mix(white);
 		}
 	}
 }

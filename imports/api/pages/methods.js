@@ -24,6 +24,8 @@ export function insertPage(newPage){
 	//insert into DB and get _id
 	newPage._id = Pages.insert(cleanItem(newPage));
 
+	Meteor.call('addState', newPage);
+
 	return { page: newPage };
 }
 
@@ -54,6 +56,8 @@ export function updatePage(page){
 
 	//Reassign _id to return to the front 
 	page._id = saveId;
+
+	Meteor.call('addState', page);
 
 	return { page };
 }
