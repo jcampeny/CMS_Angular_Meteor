@@ -10,5 +10,4 @@ This is AngularMeteor's CMS
 - Install Meteor (`https://www.meteor.com/install`)
 - Clone this project to `/path/to/CMS` (for example)
 - Go to project folder and install npm module: `meteor npm install`
-- Run meteor server with: meteor
-
+- Run meteor server with: `meteor`
