@@ -25,11 +25,11 @@ class MediaContainerService {
 			type : name,
 			class: this.css.generateClassId(), 
 			flex : 100,
-			html: {
+			html: [{
 				'<>' : 'img',
 				src : '/img/pugs/pug-' + (Math.floor(Math.random()*8)+1) +'.jpg',
 				alt : 'Yes, another pug'
-			}
+			}]
 		};
 
 		return metaElement;

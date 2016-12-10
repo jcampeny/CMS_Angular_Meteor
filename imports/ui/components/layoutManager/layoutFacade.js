@@ -100,11 +100,12 @@ class LayoutFacadeService {
 
 	createEmptyLayout() {
 		return {
-			'<>'     : 'section',
-			class    : this.css.generateClassId(),
-			layout   : 'row',
-			html   	 : [],
-			metaData : {
+			'<>'          : 'section',
+			class         : this.css.generateClassId(),
+			layout        : 'row',
+			'layout-wrap' : '',
+			html   	      : [],
+			metaData      : {
 				name   : 'Layout name',
 				owner  : Meteor.userId(),
 				public : false

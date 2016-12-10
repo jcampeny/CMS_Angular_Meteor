@@ -1,1 +1,1 @@
-<img ng-src="{{mediaContainer.metaData.html.src}}" alt="{{mediaContainer.metaData.html.alt}}">
+<img ng-src="{{mediaContainer.metaData.html.src || mediaContainer.metaData.html[0].src}}" alt="{{mediaContainer.metaData.html.alt || mediaContainer.metaData.html[0].alt}}">
