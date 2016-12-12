@@ -1,4 +1,5 @@
 import json2html from 'node-json2html';
+import { parseJsonToCssSyntax } from '../utils/functions';
 
 const clean = {
 	html(page){
@@ -12,16 +13,34 @@ const clean = {
 			page.html = page.html.map( pageItem => this.html(pageItem));
 
 		return page;
-	}
+	},
 }
 
-function html (state) {
+function srcToRelative(page, basePath){
+	if (page['<>'] === 'img')
+		page.src = basePath + page.src;
+
+	if (Array.isArray(page.html) && page.html.length > 0){
+		page.html.forEach( html => {
+			if (Array.isArray(page.html) && page.html.length > 0)
+				html = srcToRelative(html, basePath);
+		});		
+	}
+
+	return page; 
+}
+
+function html (state, headerLayout) {
+	const basePath = state.name.slice(0, -1).split('/').map(a => '..').join('/');
 	//delete _id, metadata, styles
-	const content = json2html.transform([{}], clean.html(state.page)); 
+	const content       = clean.html(Object.assign({}, srcToRelative(state.page, basePath)));
+	const contentParsed = json2html.transform([{}], content); 
+	const header        = json2html.transform([{}], headerLayout); 
 	const vars = {
-		content,
+		contentParsed,
+		header,
 		lang : state.lang || 'en',
-		title : state.name
+		title : state.name.slice(0, -1).split('/').pop(),
 	};  
 
 	return `<!DOCTYPE html>
@@ -31,11 +50,13 @@ function html (state) {
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Angular Material style sheet -->
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+	<link rel="stylesheet" href="${basePath}/generic.css" />
+	<link rel="stylesheet" href="styles.css" />
 	<title>${vars.title}</title>
 </head>
 <body ng-app="BlankApp" ng-cloak>
-	${vars.content}
-
+	${vars.header}
+	${vars.contentParsed}
 	<!-- Angular Material requires Angular.js Libraries -->
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
@@ -51,6 +72,11 @@ function html (state) {
 </html>`;
 };
 
+function css (state) {
+	return parseJsonToCssSyntax(state.page.styles, state.page.class);
+}
+
 export const templates = {
-	html
+	html,
+	css
 };

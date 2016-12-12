@@ -86,7 +86,7 @@ class CompilatorFacadeService {
 
 		this.call('compilator', compilatorObj, 
 			(err,res) => {
-				//console.log(err,res);
+				console.log(err,res);
 				//res.then( (a,b) => {console.log(a,b)});
 			}
 		);
