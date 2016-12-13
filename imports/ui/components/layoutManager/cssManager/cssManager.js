@@ -40,9 +40,10 @@ class CssManager{
 	}
 
 	removeProperty(property){
-		for (let i in this.styleSaved.properties) {
-			if ( angular.equals(property, this.styleSaved.properties[i]) )
-				this.styleSaved.properties.splice(i, 1);
+		if (Array.isArray(this.container.styles)){
+			this.container.styles = this.container.styles.filter( 
+				propertyItem => !Object.is(property, propertyItem)
+			);
 		}
 	}
 
