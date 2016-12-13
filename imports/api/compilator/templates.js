@@ -78,8 +78,21 @@ function html (state, headerLayout) {
 };
 
 function css (state) {
-	//TODO
-	return parseJsonToCssSyntax(state.page.styles, state.page.class);
+
+
+	const parse = (itemToParse) => {
+		let parsedCss = parseJsonToCssSyntax(itemToParse.styles, itemToParse.class);
+
+		if (Array.isArray(itemToParse.html) && itemToParse.html.length > 0) {
+			itemToParse.html.forEach( item => {
+				
+				parsedCss += parse(item);
+			});
+		}	
+		return 	parsedCss;
+	}
+
+	return parse(Object.assign({}, state.page));
 }
 
 export const templates = {

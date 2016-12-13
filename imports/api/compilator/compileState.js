@@ -21,14 +21,14 @@ export function compileState (state) {
 			//create path if not exist
 			mkdirp(compiledDirBase + stateItem.name, err => {
 			    if (err) throw err;
-
+			    let stateItemForCss = Object.assign({}, stateItem);
 				//Open file for writing. The file is created (if it does not exist) or truncated (if it exists).
 				//HTML
 				fs.open(compiledDirBase + stateItem.name + 'index.html', 'w', (err, fd) => {
 					if (err) throw err;
 
-					const header   = headerGenerator(state, stateItem, hierarchyState);
-					const content  = templates.html(stateItem, header);
+					const header   = headerGenerator(state, Object.assign({}, stateItem), hierarchyState);
+					const content  = templates.html(Object.assign({}, stateItem), header);
 
 					let promiseWrite = new Promise( (resolveW, rejectW) => {
 						fs.write(fd, content, null, (err, written, string) => {
@@ -39,12 +39,11 @@ export function compileState (state) {
 
 					writePromises.push(promiseWrite);
 				});
-
+				
 				//CSS
+				const content  = templates.css(stateItemForCss);
 				fs.open(compiledDirBase + stateItem.name + 'styles.css', 'w', (err, fd) => {
 					if (err) throw err;
-
-					const content  = templates.css(stateItem);
 
 					let promiseWrite = new Promise( (resolveW, rejectW) => {
 						fs.write(fd, content, null, (err, written, string) => {
@@ -119,7 +118,8 @@ function headerGenerator (state, currentState, hierarchyStates) {
 
 class HeaderTemplates{
 	static header () {
-		return { '<>' : 'header', 'class' : 'state.class', 'html' : []};
+		const className = 'type-1';
+		return { '<>' : 'header', 'class' : className, 'html' : []};
 	}
 	static ul () {
 		return { '<>' : 'ul', 'html': []}
