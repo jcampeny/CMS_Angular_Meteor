@@ -50,6 +50,7 @@ function html (state, headerLayout) {
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- Angular Material style sheet -->
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+	<link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
 	<link rel="stylesheet" href="${basePath}/generic.css" />
 	<link rel="stylesheet" href="styles.css" />
 	<title>${vars.title}</title>
@@ -57,6 +58,9 @@ function html (state, headerLayout) {
 <body ng-app="BlankApp" ng-cloak>
 	${vars.header}
 	${vars.contentParsed}
+	<footer>im footer</footer>
+	<!-- jQuery -->
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 	<!-- Angular Material requires Angular.js Libraries -->
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
@@ -68,11 +72,13 @@ function html (state, headerLayout) {
 	
 	<!-- Your application bootstrap  -->
 	<script type="text/javascript"> angular.module('BlankApp', ['ngMaterial']); </script>
+	<script type="text/javascript" src="${basePath}/scripts.js"></script>
 </body>
 </html>`;
 };
 
 function css (state) {
+	//TODO
 	return parseJsonToCssSyntax(state.page.styles, state.page.class);
 }
 

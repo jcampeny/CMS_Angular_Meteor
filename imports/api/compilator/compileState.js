@@ -99,10 +99,13 @@ function headerGenerator (state, currentState, hierarchyStates) {
 		//for each state add li > span elements	
 		states.forEach( stateItem => {
 			let parentLength =  parent.html.length - 1;
-			parent.html[parentLength].html.push(HeaderTemplates.li(stateItem.name, basePath));
+			let current      = (currentState.name == stateItem.name) ? true : false;
+			let haveChildren = Array.isArray(stateItem.states) && stateItem.states.length > 0;
 
+			parent.html[parentLength].html.push(HeaderTemplates.li(stateItem.name, basePath, current, haveChildren));
+			
 			// recursive inside the current li.html
-			if (Array.isArray(stateItem.states) && stateItem.states.length > 0){
+			if (haveChildren){
 				let childLength = parent.html[parentLength].html.length - 1;
 				parseStates(stateItem.states, parent.html[parentLength].html[childLength]);
 			}
@@ -125,9 +128,11 @@ class HeaderTemplates{
 		let name = html.slice(0, -1).split('/').pop();
 		return { '<>' : 'a', 'href' : `${basePath + '/'+ html}index.html`, html : name};
 	}
-	static li (name, basePath) {
+	static li (name, basePath, current = false, haveChildren = false) {
 		let a = HeaderTemplates.a(name, basePath);
-		return { '<>' : 'li', 'html': [a]};
+		let classProperty = (current) ? 'current' : ''; 
+		let parent = (haveChildren) ? name.slice(0, -1).split('/').pop() : '';
+		return { '<>' : 'li', 'class' : classProperty, parent,'html': [a]};
 	}
 }
 
