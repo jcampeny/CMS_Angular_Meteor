@@ -27,6 +27,7 @@ class PlainTextService {
 			type : name,
 			class: this.css.generateClassId(), 
 			flex : 100,
+			'flex-xs' : 100, //responsive
 			html:'<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet provident qui dolorum. Ab optio reprehenderit vel, eveniet aut cum alias, natus, sed quasi dicta illum ducimus, itaque recusandae. Sunt, soluta.</p>'
 		};
 		return metaElement;

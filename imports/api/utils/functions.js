@@ -1,10 +1,23 @@
 export const __DIR__ = 	require('path').resolve('.').split('.meteor')[0];
 
 export function parseJsonToCssSyntax (properties, name){
-	if (!name){
-		return JSON.stringify(properties, null, '\t').replace(/\"/g,"").replace(/,/g,";");
+	if (properties && name) {
+		if (!name){
+			return JSON.stringify(properties, null, '\t').replace(/\"/g,"").replace(/,/g,";");
+		} else {
+			let classProperties = {};
+			properties.forEach((classProperty) => {
+				if(classProperty.$$hashKey){
+					delete classProperty.$$hashKey;
+				}
+				let key = Object.keys(classProperty)[0];
+				let value = Object.values(classProperty)[0];
+				classProperties[key] = value;
+			});
+			return '.' + name + JSON.stringify(classProperties, null, '\t').replace(/\"/g,"").replace(/,/g,";") + '\n';
+		}
 	} else {
-		return '.' + name + JSON.stringify(properties, null, '\t').replace(/\"/g,"").replace(/,/g,";") + '\n';
+		return '';
 	}
 }
 

@@ -13,4 +13,4 @@ export function layoutParser(layoutObject){
 
 Meteor.methods({
 	layoutParser
-});
+}); 

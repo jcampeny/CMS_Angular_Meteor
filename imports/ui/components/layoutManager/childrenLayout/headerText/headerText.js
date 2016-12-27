@@ -27,6 +27,7 @@ class HeaderTextService {
 			type : name,
 			class: this.css.generateClassId(), 
 			flex : 100,
+			'flex-xs' : 100, //responsive
 			html:"<h2>Hello world!</h2>"
 		};
 		return metaElement;

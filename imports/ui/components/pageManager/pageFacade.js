@@ -99,11 +99,12 @@ class PageFacadeService {
 
 	createEmptyPage() {
 		return {
-			'<>'     : 'main',
-			class    : this.css.generateClassId(),
-			layout   : 'row',
-			html   	 : [],
-			metaData : {
+			'<>'          : 'main',
+			class         : this.css.generateClassId(),
+			layout        : 'row',
+			'layout-wrap' : '',
+			html   	      : [],
+			metaData      : {
 				name   : 'Page name',
 				owner  : Meteor.userId(),
 				public : false

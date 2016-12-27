@@ -12,7 +12,16 @@ class HeaderOptions{
 
 		$reactive(this).attach($scope);
 
-		this.state = $state;
+		this.state    = $state;
+		this.scope    = $scope;
+
+		this.scope.$watch(
+			() => this.state.$current.name,
+			() => {
+				//TODO 
+				//console.log(this.state.$current.name);
+			}
+		);
 	}
 
 	logout(){
