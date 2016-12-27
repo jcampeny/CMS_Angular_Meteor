@@ -84,10 +84,34 @@ class CompilatorFacadeService {
 	sendToBuild (state = this.state, pages = this.pages) {
 		let compilatorObj = new CompilatorObject(state, pages);
 
-		this.call('compilator', compilatorObj, 
+		console.log('Creando los archivos...');
+		
+		this.call('fileCreator', compilatorObj, 
 			(err,res) => {
-				console.log(err,res);
-				//res.then( (a,b) => {console.log(a,b)});
+				if(!err) this.compileToZip();
+				console.log('Archivos creados con exito!');
+			}
+		);
+	}
+
+	compileToZip () {
+		console.log('Compilando y comprimiendo los archivos para ser descargados...');
+		this.call('compileToZip', 
+			(err, res) => {
+				if(!err) this.refresWeb();
+				console.log('Archivos compilados con exito! Su peso es de ' + res +' bytes!');
+			}
+		);
+	}
+
+	refresWeb() {
+		console.log('Enviando archivos al servidor externo...');
+		this.call('refreshWeb', 
+			(err, res) => {
+				if(res === 200){
+					console.log('Actualizació realizada con éxito!');
+				}
+				//send message 'compilando y empaquetando los archivos fuente'
 			}
 		);
 	}

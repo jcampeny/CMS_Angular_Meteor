@@ -6,6 +6,8 @@ export function compileState (state) {
 	const mkdirp = require('mkdirp');
 	const compiledDirBase = __DIR__ + '.compiled_webs/' + state.owner + '/';
 
+	fs.chmodSync(compiledDirBase, 0777);
+
 	let promise = new Promise( (resolve, reject) => {
 
 		//create promises for every file
@@ -22,6 +24,8 @@ export function compileState (state) {
 			mkdirp(compiledDirBase + stateItem.name, err => {
 			    if (err) throw err;
 			    let stateItemForCss = Object.assign({}, stateItem);
+
+			    fs.chmodSync(compiledDirBase + stateItem.name, 0777);
 				//Open file for writing. The file is created (if it does not exist) or truncated (if it exists).
 				//HTML
 				fs.open(compiledDirBase + stateItem.name + 'index.html', 'w', (err, fd) => {
@@ -29,6 +33,8 @@ export function compileState (state) {
 
 					const header   = headerGenerator(state, Object.assign({}, stateItem), hierarchyState);
 					const content  = templates.html(Object.assign({}, stateItem), header);
+
+					fs.fchmodSync(fd, 0777);
 
 					let promiseWrite = new Promise( (resolveW, rejectW) => {
 						fs.write(fd, content, null, (err, written, string) => {
@@ -44,6 +50,8 @@ export function compileState (state) {
 				const content  = templates.css(stateItemForCss);
 				fs.open(compiledDirBase + stateItem.name + 'styles.css', 'w', (err, fd) => {
 					if (err) throw err;
+
+					fs.fchmodSync(fd, 0777);
 
 					let promiseWrite = new Promise( (resolveW, rejectW) => {
 						fs.write(fd, content, null, (err, written, string) => {
@@ -125,13 +133,14 @@ class HeaderTemplates{
 		return { '<>' : 'ul', 'html': []}
 	}
 	static a (html, basePath) {
-		let name = html.slice(0, -1).split('/').pop();
-		return { '<>' : 'a', 'href' : `${basePath + '/'+ html}index.html`, html : name};
+		const htcacces = 'index.html';
+		const name = html.slice(0, -1).split('/').pop();
+		return { '<>' : 'a', 'href' : `${basePath + '/'+ html + htcacces}`, html : name};
 	}
 	static li (name, basePath, current = false, haveChildren = false) {
-		let a = HeaderTemplates.a(name, basePath);
-		let classProperty = (current) ? 'current' : ''; 
-		let parent = (haveChildren) ? name.slice(0, -1).split('/').pop() : '';
+		const a = HeaderTemplates.a(name, basePath);
+		const classProperty = (current) ? 'current' : ''; 
+		const parent = (haveChildren) ? name.slice(0, -1).split('/').pop() : '';
 		return { '<>' : 'li', 'class' : classProperty, parent,'html': [a]};
 	}
 }
